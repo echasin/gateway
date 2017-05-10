@@ -1,0 +1,55 @@
+
+<div *ngIf="asset">
+    <h2><span jhiTranslate="gatewayApp.asset.detail.title">Asset</span> {{asset.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gatewayApp.asset.name">Name</span></dt>
+        <dd>
+            <span>{{asset.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.asset.nameshort">Nameshort</span></dt>
+        <dd>
+            <span>{{asset.nameshort}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.asset.description">Description</span></dt>
+        <dd>
+            <span>{{asset.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.asset.status">Status</span></dt>
+        <dd>
+            <span>{{asset.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.asset.lastmodifiedby">Lastmodifiedby</span></dt>
+        <dd>
+            <span>{{asset.lastmodifiedby}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.asset.lastmodifieddatetime">Lastmodifieddatetime</span></dt>
+        <dd>
+            <span>{{asset.lastmodifieddatetime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.asset.domain">Domain</span></dt>
+        <dd>
+            <span>{{asset.domain}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.asset.assetrecordtype">Assetrecordtype</span></dt>
+        <dd>
+            <div *ngIf="asset.assetrecordtype">
+                <a [routerLink]="['/assetrecordtype', asset.assetrecordtype?.id]">{{asset.assetrecordtype?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'asset/'+ asset.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

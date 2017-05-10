@@ -1,0 +1,91 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "assetrecordtype",
+            "otherEntityName": "assetrecordtype",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "parentasset",
+            "otherEntityName": "assetassetmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "parentasset"
+        },
+        {
+            "relationshipName": "childasset",
+            "otherEntityName": "assetassetmbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "childasset"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "nameshort",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        },
+        {
+            "fieldName": "lastmodifiedby",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "lastmodifieddatetime",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "domain",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        }
+    ],
+    "changelogDate": "20170509033616",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "asset",
+    "pagination": "pagination",
+    "microserviceName": "asset",
+    "searchEngine": "elasticsearch"
+}

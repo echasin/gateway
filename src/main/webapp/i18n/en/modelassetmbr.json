@@ -1,0 +1,27 @@
+{
+    "gatewayApp": {
+        "modelassetmbr" : {
+            "home": {
+                "title": "Modelassetmbrs",
+                "createLabel": "Create a new Modelassetmbr",
+                "createOrEditLabel": "Create or edit a Modelassetmbr",
+                "search": "Search for Modelassetmbr"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Modelassetmbr {{ id }}?"
+            },
+            "detail": {
+                "title": "Modelassetmbr"
+            },
+            "comment": "Comment",
+            "model": "Model"
+        }
+    },
+    "assetApp": {
+        "modelassetmbr" : {
+            "created": "A new Modelassetmbr is created with identifier {{ param }}",
+            "updated": "A Modelassetmbr is updated with identifier {{ param }}",
+            "deleted": "A Modelassetmbr is deleted with identifier {{ param }}"
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "gatewayApp": {
+        "assetassetmbr" : {
+            "home": {
+                "title": "Assetassetmbrs",
+                "createLabel": "Create a new Assetassetmbr",
+                "createOrEditLabel": "Create or edit a Assetassetmbr",
+                "search": "Search for Assetassetmbr"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Assetassetmbr {{ id }}?"
+            },
+            "detail": {
+                "title": "Assetassetmbr"
+            },
+            "comment": "Comment",
+            "xcoordinate": "Xcoordinate",
+            "ycoordinate": "Ycoordinate",
+            "parentinstance": "Parentinstance",
+            "childinstance": "Childinstance",
+            "nameshort": "Nameshort",
+            "description": "Description",
+            "status": "Status",
+            "lastmodifiedby": "Lastmodifiedby",
+            "lastmodifieddatetime": "Lastmodifieddatetime",
+            "domain": "Domain",
+            "parentasset": "Parentasset",
+            "childasset": "Childasset",
+            "model": "Model"
+        }
+    },
+    "assetApp": {
+        "assetassetmbr" : {
+            "created": "A new Assetassetmbr is created with identifier {{ param }}",
+            "updated": "A Assetassetmbr is updated with identifier {{ param }}",
+            "deleted": "A Assetassetmbr is deleted with identifier {{ param }}"
+        }
+    }
+}

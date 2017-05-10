@@ -1,0 +1,83 @@
+
+<div *ngIf="assetassetmbr">
+    <h2><span jhiTranslate="gatewayApp.assetassetmbr.detail.title">Assetassetmbr</span> {{assetassetmbr.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.comment">Comment</span></dt>
+        <dd>
+            <span>{{assetassetmbr.comment}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.xcoordinate">Xcoordinate</span></dt>
+        <dd>
+            <span>{{assetassetmbr.xcoordinate}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.ycoordinate">Ycoordinate</span></dt>
+        <dd>
+            <span>{{assetassetmbr.ycoordinate}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.parentinstance">Parentinstance</span></dt>
+        <dd>
+            <span>{{assetassetmbr.parentinstance}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.childinstance">Childinstance</span></dt>
+        <dd>
+            <span>{{assetassetmbr.childinstance}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.nameshort">Nameshort</span></dt>
+        <dd>
+            <span>{{assetassetmbr.nameshort}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.description">Description</span></dt>
+        <dd>
+            <span>{{assetassetmbr.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.status">Status</span></dt>
+        <dd>
+            <span>{{assetassetmbr.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.lastmodifiedby">Lastmodifiedby</span></dt>
+        <dd>
+            <span>{{assetassetmbr.lastmodifiedby}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.lastmodifieddatetime">Lastmodifieddatetime</span></dt>
+        <dd>
+            <span>{{assetassetmbr.lastmodifieddatetime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.domain">Domain</span></dt>
+        <dd>
+            <span>{{assetassetmbr.domain}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.parentasset">Parentasset</span></dt>
+        <dd>
+            <div *ngIf="assetassetmbr.parentasset">
+                <a [routerLink]="['/asset', assetassetmbr.parentasset?.id]">{{assetassetmbr.parentasset?.name}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.childasset">Childasset</span></dt>
+        <dd>
+            <div *ngIf="assetassetmbr.childasset">
+                <a [routerLink]="['/asset', assetassetmbr.childasset?.id]">{{assetassetmbr.childasset?.name}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.model">Model</span></dt>
+        <dd>
+            <div *ngIf="assetassetmbr.model">
+                <a [routerLink]="['/model', assetassetmbr.model?.id]">{{assetassetmbr.model?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'assetassetmbr/'+ assetassetmbr.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

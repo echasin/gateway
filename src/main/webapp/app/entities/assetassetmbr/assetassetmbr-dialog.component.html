@@ -1,0 +1,198 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAssetassetmbrLabel" jhiTranslate="gatewayApp.assetassetmbr.home.createOrEditLabel">Create or edit a Assetassetmbr</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!assetassetmbr.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="assetassetmbr.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.comment" for="field_comment">Comment</label>
+            <input type="text" class="form-control" name="comment" id="field_comment"
+                [(ngModel)]="assetassetmbr.comment"
+            maxlength="100" />
+            <div [hidden]="!(editForm.controls.comment?.dirty && editForm.controls.comment?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.comment?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.xcoordinate" for="field_xcoordinate">Xcoordinate</label>
+            <input type="number" class="form-control" name="xcoordinate" id="field_xcoordinate"
+                [(ngModel)]="assetassetmbr.xcoordinate"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.ycoordinate" for="field_ycoordinate">Ycoordinate</label>
+            <input type="number" class="form-control" name="ycoordinate" id="field_ycoordinate"
+                [(ngModel)]="assetassetmbr.ycoordinate"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.parentinstance" for="field_parentinstance">Parentinstance</label>
+            <input type="text" class="form-control" name="parentinstance" id="field_parentinstance"
+                [(ngModel)]="assetassetmbr.parentinstance"
+            maxlength="100" />
+            <div [hidden]="!(editForm.controls.parentinstance?.dirty && editForm.controls.parentinstance?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.parentinstance?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.childinstance" for="field_childinstance">Childinstance</label>
+            <input type="text" class="form-control" name="childinstance" id="field_childinstance"
+                [(ngModel)]="assetassetmbr.childinstance"
+            maxlength="100" />
+            <div [hidden]="!(editForm.controls.childinstance?.dirty && editForm.controls.childinstance?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.childinstance?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.nameshort" for="field_nameshort">Nameshort</label>
+            <input type="text" class="form-control" name="nameshort" id="field_nameshort"
+                [(ngModel)]="assetassetmbr.nameshort"
+            required maxlength="20" />
+            <div [hidden]="!(editForm.controls.nameshort?.dirty && editForm.controls.nameshort?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nameshort?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nameshort?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
+                   This field cannot be longer than 20 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="assetassetmbr.description"
+            maxlength="255" />
+            <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.status" for="field_status">Status</label>
+            <input type="text" class="form-control" name="status" id="field_status"
+                [(ngModel)]="assetassetmbr.status"
+            required maxlength="25" />
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 25 }">
+                   This field cannot be longer than 25 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.lastmodifiedby" for="field_lastmodifiedby">Lastmodifiedby</label>
+            <input type="text" class="form-control" name="lastmodifiedby" id="field_lastmodifiedby"
+                [(ngModel)]="assetassetmbr.lastmodifiedby"
+            required maxlength="50" />
+            <div [hidden]="!(editForm.controls.lastmodifiedby?.dirty && editForm.controls.lastmodifiedby?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastmodifiedby?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastmodifiedby?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.lastmodifieddatetime" for="field_lastmodifieddatetime">Lastmodifieddatetime</label>
+            <div class="d-flex">
+                <input id="field_lastmodifieddatetime" type="datetime-local" class="form-control" name="lastmodifieddatetime" [(ngModel)]="assetassetmbr.lastmodifieddatetime"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.lastmodifieddatetime?.dirty && editForm.controls.lastmodifieddatetime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastmodifieddatetime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.lastmodifieddatetime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.assetassetmbr.domain" for="field_domain">Domain</label>
+            <input type="text" class="form-control" name="domain" id="field_domain"
+                [(ngModel)]="assetassetmbr.domain"
+            maxlength="25" />
+            <div [hidden]="!(editForm.controls.domain?.dirty && editForm.controls.domain?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.domain?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 25 }">
+                   This field cannot be longer than 25 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="gatewayApp.assetassetmbr.parentasset" for="field_parentasset">Parentasset</label>
+            <select class="form-control" id="field_parentasset" name="parentasset" [(ngModel)]="assetassetmbr.parentasset"  required>
+                <option [ngValue]="assetOption.id === assetassetmbr.parentasset?.id ? assetassetmbr.parentasset : assetOption" *ngFor="let assetOption of assets; trackBy: trackAssetById">{{assetOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.parentasset?.dirty && editForm.controls.parentasset?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.parentasset?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="gatewayApp.assetassetmbr.childasset" for="field_childasset">Childasset</label>
+            <select class="form-control" id="field_childasset" name="childasset" [(ngModel)]="assetassetmbr.childasset"  required>
+                <option [ngValue]="assetOption.id === assetassetmbr.childasset?.id ? assetassetmbr.childasset : assetOption" *ngFor="let assetOption of assets; trackBy: trackAssetById">{{assetOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.childasset?.dirty && editForm.controls.childasset?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.childasset?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="gatewayApp.assetassetmbr.model" for="field_model">Model</label>
+            <select class="form-control" id="field_model" name="model" [(ngModel)]="assetassetmbr.model"  required>
+                <option [ngValue]="modelOption.id === assetassetmbr.model?.id ? assetassetmbr.model : modelOption" *ngFor="let modelOption of models; trackBy: trackModelById">{{modelOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.model?.dirty && editForm.controls.model?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.model?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

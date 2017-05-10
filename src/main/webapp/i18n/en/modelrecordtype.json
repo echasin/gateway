@@ -1,0 +1,33 @@
+{
+    "gatewayApp": {
+        "modelrecordtype" : {
+            "home": {
+                "title": "Modelrecordtypes",
+                "createLabel": "Create a new Modelrecordtype",
+                "createOrEditLabel": "Create or edit a Modelrecordtype",
+                "search": "Search for Modelrecordtype"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Modelrecordtype {{ id }}?"
+            },
+            "detail": {
+                "title": "Modelrecordtype"
+            },
+            "name": "Name",
+            "nameshort": "Nameshort",
+            "description": "Description",
+            "status": "Status",
+            "lastmodifiedby": "Lastmodifiedby",
+            "lastmodifieddatetime": "Lastmodifieddatetime",
+            "domain": "Domain",
+            "model": "Model"
+        }
+    },
+    "assetApp": {
+        "modelrecordtype" : {
+            "created": "A new Modelrecordtype is created with identifier {{ param }}",
+            "updated": "A Modelrecordtype is updated with identifier {{ param }}",
+            "deleted": "A Modelrecordtype is deleted with identifier {{ param }}"
+        }
+    }
+}
