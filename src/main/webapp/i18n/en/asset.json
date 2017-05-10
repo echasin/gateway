@@ -16,6 +16,7 @@
             "name": "Name",
             "nameshort": "Nameshort",
             "description": "Description",
+            "details": "Details",
             "status": "Status",
             "lastmodifiedby": "Lastmodifiedby",
             "lastmodifieddatetime": "Lastmodifieddatetime",
