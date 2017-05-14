@@ -6,6 +6,7 @@ export class Asset {
         public name?: string,
         public nameshort?: string,
         public description?: string,
+        public details?: string,
         public status?: string,
         public lastmodifiedby?: string,
         public lastmodifieddatetime?: any,
