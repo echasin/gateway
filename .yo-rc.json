@@ -21,9 +21,9 @@
     "serviceDiscoveryType": "eureka",
     "buildTool": "gradle",
     "enableSocialSignIn": false,
-    "jwtSecretKey": "3950acce3e5f2110944b3e626cb025bbb4e593bf",
+    "jwtSecretKey": "abca89f01c87b8d3edeb44d4ffc1e3373691f74e",
     "clientFramework": "angular2",
-    "useSass": true,
+    "useSass": false,
     "clientPackageManager": "yarn",
     "applicationType": "gateway",
     "testFrameworks": [

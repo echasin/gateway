@@ -7,11 +7,10 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "assetassetmbr": "Assetassetmbr",
                 "asset": "Asset",
                 "assetrecordtype": "Assetrecordtype",
                 "model": "Model",
-                "assetassetmbr": "Assetassetmbr",
-                "modelassetmbr": "Modelassetmbr",
                 "modelrecordtype": "Modelrecordtype",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
