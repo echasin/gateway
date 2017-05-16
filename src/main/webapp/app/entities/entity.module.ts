@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { GatewayAssetassetmbrModule } from './assetassetmbr/assetassetmbr.module';
 import { GatewayAssetModule } from './asset/asset.module';
 import { GatewayAssetassetmbrModule } from './assetassetmbr/assetassetmbr.module';
 import { GatewayAssetrecordtypeModule } from './assetrecordtype/assetrecordtype.module';
@@ -10,6 +11,7 @@ import { GatewayAssetassetmbrrecordtypeModule } from './assetassetmbrrecordtype/
 
 @NgModule({
     imports: [
+        GatewayAssetassetmbrModule,
         GatewayAssetModule,
         GatewayAssetassetmbrModule,
         GatewayAssetrecordtypeModule,
