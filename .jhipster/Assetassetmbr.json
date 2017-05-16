@@ -2,6 +2,12 @@
     "fluentMethods": true,
     "relationships": [
         {
+            "relationshipName": "assetassetmbrrecordtype",
+            "otherEntityName": "assetassetmbrrecordtype",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+		{
             "relationshipName": "parentasset",
             "otherEntityName": "asset",
             "relationshipType": "many-to-one",
@@ -24,7 +30,7 @@
             "otherEntityName": "model",
             "relationshipType": "many-to-one",
             "relationshipValidateRules": [
-                "required"
+  
             ],
             "otherEntityField": "name"
         }
