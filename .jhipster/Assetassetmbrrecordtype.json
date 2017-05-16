@@ -2,22 +2,10 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "assetrecordtype",
-            "otherEntityName": "assetrecordtype",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "parentasset",
+            "relationshipName": "assetassetmbr",
             "otherEntityName": "assetassetmbr",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "parentasset"
-        },
-        {
-            "relationshipName": "childasset",
-            "otherEntityName": "assetassetmbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "childasset"
+            "otherEntityRelationshipName": "assetassetmbrrecordtype"
         }
     ],
     "fields": [
@@ -46,10 +34,6 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "255"
-        },
-       {
-            "fieldName": "details",
-            "fieldType": "String"
         },
         {
             "fieldName": "status",
@@ -85,10 +69,10 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "20170509033616",
+    "changelogDate": "20170516034144",
     "dto": "no",
     "service": "no",
-    "entityTableName": "asset",
+    "entityTableName": "assetassetmbrrecordtype",
     "pagination": "pagination",
     "microserviceName": "asset",
     "searchEngine": "elasticsearch"

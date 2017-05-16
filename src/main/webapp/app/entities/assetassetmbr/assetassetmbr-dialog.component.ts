@@ -9,6 +9,7 @@ import { EventManager, AlertService } from 'ng-jhipster';
 import { Assetassetmbr } from './assetassetmbr.model';
 import { AssetassetmbrPopupService } from './assetassetmbr-popup.service';
 import { AssetassetmbrService } from './assetassetmbr.service';
+import { Assetassetmbrrecordtype, AssetassetmbrrecordtypeService } from '../assetassetmbrrecordtype';
 import { Asset, AssetService } from '../asset';
 import { Model, ModelService } from '../model';
 
@@ -22,6 +23,8 @@ export class AssetassetmbrDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
+    assetassetmbrrecordtypes: Assetassetmbrrecordtype[];
+
     assets: Asset[];
 
     models: Model[];
@@ -30,6 +33,7 @@ export class AssetassetmbrDialogComponent implements OnInit {
         public activeModal: NgbActiveModal,
         private alertService: AlertService,
         private assetassetmbrService: AssetassetmbrService,
+        private assetassetmbrrecordtypeService: AssetassetmbrrecordtypeService,
         private assetService: AssetService,
         private modelService: ModelService,
         private eventManager: EventManager
@@ -39,6 +43,8 @@ export class AssetassetmbrDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.assetassetmbrrecordtypeService.query().subscribe(
+            (res: Response) => { this.assetassetmbrrecordtypes = res.json(); }, (res: Response) => this.onError(res.json()));
         this.assetService.query().subscribe(
             (res: Response) => { this.assets = res.json(); }, (res: Response) => this.onError(res.json()));
         this.modelService.query().subscribe(
@@ -82,6 +88,10 @@ export class AssetassetmbrDialogComponent implements OnInit {
 
     private onError(error) {
         this.alertService.error(error.message, null, null);
+    }
+
+    trackAssetassetmbrrecordtypeById(index: number, item: Assetassetmbrrecordtype) {
+        return item.id;
     }
 
     trackAssetById(index: number, item: Asset) {
