@@ -8,11 +8,11 @@
             "entities": {
                 "main": "Entities",
                 "asset": "Asset",
+                "assetassetmbr": "Assetassetmbr",
                 "assetrecordtype": "Assetrecordtype",
                 "model": "Model",
-                "assetassetmbr": "Assetassetmbr",
-                "modelassetmbr": "Modelassetmbr",
                 "modelrecordtype": "Modelrecordtype",
+                "assetassetmbrrecordtype": "Assetassetmbrrecordtype",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
