@@ -33,9 +33,9 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/apprefactory  
-        username: postgres
-        password: postgres
+        url: jdbc:postgresql://localhost:5432/gateway
+        username: gateway
+        password:
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -55,8 +55,8 @@ spring:
             cluster-nodes:
             properties:
                 path:
-                  logs: target/elasticsearch/log
-                  data: target/elasticsearch/data
+                    logs: target/elasticsearch/log
+                    data: target/elasticsearch/data
     mail:
         host: localhost
         port: 25
