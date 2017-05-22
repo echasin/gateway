@@ -1,0 +1,49 @@
+
+<div *ngIf="assetassetmbrrecordtype">
+    <h2><span jhiTranslate="gatewayApp.assetassetmbrrecordtype.detail.title">Assetassetmbrrecordtype</span> {{assetassetmbrrecordtype.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gatewayApp.assetassetmbrrecordtype.name">Name</span></dt>
+        <dd>
+            <span>{{assetassetmbrrecordtype.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbrrecordtype.nameshort">Nameshort</span></dt>
+        <dd>
+            <span>{{assetassetmbrrecordtype.nameshort}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbrrecordtype.description">Description</span></dt>
+        <dd>
+            <span>{{assetassetmbrrecordtype.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbrrecordtype.status">Status</span></dt>
+        <dd>
+            <span>{{assetassetmbrrecordtype.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbrrecordtype.lastmodifiedby">Lastmodifiedby</span></dt>
+        <dd>
+            <span>{{assetassetmbrrecordtype.lastmodifiedby}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbrrecordtype.lastmodifieddatetime">Lastmodifieddatetime</span></dt>
+        <dd>
+            <span>{{assetassetmbrrecordtype.lastmodifieddatetime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbrrecordtype.domain">Domain</span></dt>
+        <dd>
+            <span>{{assetassetmbrrecordtype.domain}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'assetassetmbrrecordtype/'+ assetassetmbrrecordtype.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -48,6 +48,12 @@
         <dd>
             <span>{{assetassetmbr.domain}}</span>
         </dd>
+        <dt><span jhiTranslate="gatewayApp.assetassetmbr.assetassetmbrrecordtype">Assetassetmbrrecordtype</span></dt>
+        <dd>
+            <div *ngIf="assetassetmbr.assetassetmbrrecordtype">
+                <a [routerLink]="['/assetassetmbrrecordtype', assetassetmbr.assetassetmbrrecordtype?.id]">{{assetassetmbr.assetassetmbrrecordtype?.name}}</a>
+            </div>
+        </dd>
         <dt><span jhiTranslate="gatewayApp.assetassetmbr.parentasset">Parentasset</span></dt>
         <dd>
             <div *ngIf="assetassetmbr.parentasset">
