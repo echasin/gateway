@@ -10,6 +10,7 @@ import { Model } from './model.model';
 import { ModelPopupService } from './model-popup.service';
 import { ModelService } from './model.service';
 import { Modelrecordtype, ModelrecordtypeService } from '../modelrecordtype';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-model-dialog',
@@ -35,8 +36,8 @@ export class ModelDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.modelrecordtypeService.query().subscribe(
-            (res: Response) => { this.modelrecordtypes = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.modelrecordtypeService.query()
+            .subscribe((res: ResponseWrapper) => { this.modelrecordtypes = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
     clear() {
         this.activeModal.dismiss('cancel');

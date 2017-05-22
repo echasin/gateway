@@ -10,6 +10,7 @@ import { Asset } from './asset.model';
 import { AssetPopupService } from './asset-popup.service';
 import { AssetService } from './asset.service';
 import { Assetrecordtype, AssetrecordtypeService } from '../assetrecordtype';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-asset-dialog',
@@ -35,8 +36,8 @@ export class AssetDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.assetrecordtypeService.query().subscribe(
-            (res: Response) => { this.assetrecordtypes = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.assetrecordtypeService.query()
+            .subscribe((res: ResponseWrapper) => { this.assetrecordtypes = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
     clear() {
         this.activeModal.dismiss('cancel');
