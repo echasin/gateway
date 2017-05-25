@@ -10,7 +10,8 @@ export class AssetassetmbrService {
 
     private resourceUrl = 'asset/api/assetassetmbrs';
     private resourceSearchUrl = 'asset/api/_search/assetassetmbrs';
-
+    private assetassetmbrbymodelUrl = 'asset/api/assetassetmbrbymodel';
+    
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
     create(assetassetmbr: Assetassetmbr): Observable<Assetassetmbr> {
@@ -39,6 +40,13 @@ export class AssetassetmbrService {
     query(req?: any): Observable<Response> {
         const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
+            .map((res: Response) => this.convertResponse(res))
+        ;
+    }
+    
+    loadAssetassetmbr(id: number): Observable<Response> {
+      //  const options = this.createRequestOption(req);
+        return this.http.get(`${this.assetassetmbrbymodelUrl}/${id}`)
             .map((res: Response) => this.convertResponse(res))
         ;
     }

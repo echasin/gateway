@@ -1,14 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { EventManager  } from 'ng-jhipster';
+import { Subscription, Observable } from 'rxjs/Rx';
+import { EventManager , AlertService } from 'ng-jhipster';
 import { Response } from '@angular/http';
-
 import { Model } from './model.model';
 import { ModelService } from './model.service';
 import { AssetService } from '../asset/asset.service';
 import { Asset } from '../asset/asset.model';
-
 import { AssetassetmbrService } from '../assetassetmbr/assetassetmbr.service';
 import { Assetassetmbr } from '../assetassetmbr/assetassetmbr.model';
 
@@ -19,42 +17,49 @@ import * as $ from "jquery";
 
 
 @Component({
-    selector: 'jhi-model-detail',
-    templateUrl: './model-detail.component.html'
+    selector: 'jhi-edit-attacktree',
+    templateUrl: './edit-attacktree.component.html'
 })
-export class ModelDetailComponent implements OnInit, OnDestroy {
+export class EditAttackTree implements OnInit, OnDestroy {
 
-
+    
     assets: Asset[];
     assetassetmbr: Assetassetmbr={};
     private assetasset=[];
     model: Model;
+    line: boolean;
+    error: any;
+    success: any;
+    isSaving: boolean;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
     
-    private graph = new joint.dia.Graph;  
+    private graph = new joint.dia.Graph;   
 
     constructor(
         private eventManager: EventManager,
         private modelService: ModelService,
-        private assetService: AssetService,
-        private assetassetmbrService: AssetassetmbrService, 
+        private alertService: AlertService,
+        private assetService: AssetService,  
+        private assetassetmbrService: AssetassetmbrService,      
         private route: ActivatedRoute
     ) {
     }
-         
+    
     ngOnInit() {
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         
-          this.subscription = this.route.params.subscribe((params) => {
+         this.subscription = this.route.params.subscribe((params) => {
             this.loadAssetassetmbr(params['id']);
         });
         
         this.registerChangeInModels();
+        this.loadAllAssets();
+       // this.loadAssetassetmbr();
         this.buildCanvas();
-        
+        this.buildTree();
     }
 
     load(id) {
@@ -63,36 +68,15 @@ export class ModelDetailComponent implements OnInit, OnDestroy {
         });
     }
     
-    previousState() {
-        window.history.back();
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-        this.eventManager.destroy(this.eventSubscriber);
-    }
-
-    registerChangeInModels() {
-        this.eventSubscriber = this.eventManager.subscribe(
-            'modelListModification',
-            (response) => this.load(this.model.id)
-        );
+     loadAllAssets(){
+        this.assetService.query().subscribe(
+            (res: Response) => this.onSuccessLoadAllAssets(res.json(), res.headers),
+            (res: Response) => this.onError(res.json())
+         );
     }
     
     
-      buildCanvas(){
-          const paper = new joint.dia.Paper({
-              el: $('#paper'),
-              width: 650,
-              height: 400,
-              gridSize: 20,
-              model: this.graph,
-              markAvailable: true,
-              linkConnectionPoint: joint.util.shapePerimeterConnectionPoint,
-              snapLinks: true
-         });
-        }
-          
+    
      findByKey(array, value) {
         for (var i = 0; i < array.length; i++) {
             if (array[i] === value) {
@@ -111,10 +95,10 @@ export class ModelDetailComponent implements OnInit, OnDestroy {
         return null;
     }
 
-    
-        loadAssetassetmbr(id){
-            this.assetassetmbrService.loadAssetassetmbr(id).subscribe(
-               (res: Response) => {
+
+    loadAssetassetmbr(id){
+        this.assetassetmbrService.loadAssetassetmbr(id).subscribe(
+            (res: Response) => {
                     var arr=[];
                     for(var i=0;i< res.json().length;i++){
                         var a;
@@ -189,6 +173,139 @@ export class ModelDetailComponent implements OnInit, OnDestroy {
                      }
             }
           );
+    }
+    
+    private onSuccessLoadAllAssets(data, headers) {
+         this.assets = data;
+    }
+    
+    
+    buildTree(){
+        
+    }
+    
+    private onError(error) {
+        this.alertService.error(error.message, null, null);
+    }
+    
+    previousState() {
+        window.history.back();
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+        this.eventManager.destroy(this.eventSubscriber);
+    }
+
+    registerChangeInModels() {
+        this.eventSubscriber = this.eventManager.subscribe(
+            'modelListModification',
+            (response) => this.load(this.model.id)
+        );
+    }
+   
+    
+    buildCanvas(){
+          const paper = new joint.dia.Paper({
+              el: $('#paper'),
+              width: 650,
+              height: 400,
+              gridSize: 20,
+              model: this.graph,
+              markAvailable: true,
+              linkConnectionPoint: joint.util.shapePerimeterConnectionPoint,
+              snapLinks: true
+         });
+        
+       
+        
+      paper.on('cell:pointerup', (cellView, evt, x, y) => {
+          if(this.line==true){
+               this.graph.addCell(new joint.dia.Link({
+                   source: { id:cellView.model.id},
+                   target: { x: x, y: y+70 },
+               }));
+              this.line=false; 
+           }
+      });
+        
+                
+        this.graph.on('change:source change:target', (link) => {
+            
+            if (link.get('source').id && link.get('target').id) {
+                var source = this.graph.getCell(link.get('source'));
+                var target = this.graph.getCell(link.get('target'));
+                this.assetasset.push({"sourceId": source.attributes.attrs.id,"targetId": target.attributes.attrs.id,"parentxcoordinate": source.attributes.position.x,"parentycoordinate": source.attributes.position.y,"childxcoordinate": target.attributes.position.x,"childycoordinate": target.attributes.position.y,"parentInstance":source.attributes.attrs.instance,"childInstance":target.attributes.attrs.instance});                        
+            }
+        });
+     }
+    //private lastmodifieddatetime: Date = new Date
+    saveModel(){
+       
+        
+        for(var mbr=0;mbr<this.assetasset.length;mbr++){            
+            var parentasset;
+            var childasset;
+            this.assetassetmbr.comment="comment";
+            this.assetassetmbr.parentxcoordinate=this.assetasset[mbr].parentxcoordinate;
+            this.assetassetmbr.parentycoordinate=this.assetasset[mbr].parentycoordinate;
+            this.assetassetmbr.childxcoordinate=this.assetasset[mbr].childxcoordinate;
+            this.assetassetmbr.childycoordinate=this.assetasset[mbr].childycoordinate;
+            this.assetassetmbr.parentinstance=this.assetasset[mbr].parentInstance;
+            this.assetassetmbr.childinstance=this.assetasset[mbr].childInstance;
+            this.assetassetmbr.nameshort="nameshort";
+            this.assetassetmbr.status="active";
+            this.assetassetmbr.lastmodifiedby="ali"
+           // this.assetassetmbr.lastmodifieddatetime=this.lastmodifieddatetime;
+            this.assetassetmbr.domain="DEMO";
+            this.assetassetmbr.model=this.model;    
+            this.assetService.find(this.assetasset[mbr].sourceId).subscribe((parentasset) => {
+                 this.assetassetmbr.parentasset=parentasset;
+               this.assetService.find(this.assetasset[0].targetId).subscribe((childasset) => {
+                     this.assetassetmbr.childasset=childasset;
+                          this.subscribeToSaveResponse(this.assetassetmbrService.create(this.assetassetmbr));
+            });
+            });
+            
+     
+        }
+
+    }
+
+      private subscribeToSaveResponse(result: Observable<Assetassetmbr>) {
+        result.subscribe((res: Assetassetmbr) =>
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    }
+    
+      private onSaveSuccess(result: Assetassetmbr) {
+        this.eventManager.broadcast({ name: 'assetassetmbrListModification', content: 'OK'});
+        this.isSaving = false;
+    }
+
+    private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
+        this.isSaving = false;
+        this.onError(error);
+    }
+    
+    addAsset(id,nameshort){
+        const a = new joint.shapes.basic.Rect({
+          position: {x: 50, y: 50},
+          rect: { fill: "red" },
+          size: {width: 100, height: 40},
+          attrs: {text: {text: nameshort}}
+       });
+        a.attr('instance', a.id)
+        a.attr('id', id)
+       this.graph.addCell(a);
+     }
+    
+    addLine(){
+       this.line=true;        
     }
         
 }
