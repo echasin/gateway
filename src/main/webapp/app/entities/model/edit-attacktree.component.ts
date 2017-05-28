@@ -174,7 +174,20 @@ export class EditAttackTree implements OnInit, OnDestroy {
                                source: { id:parentCell.id},
                                target: { id:b.id},
                             }));
-                      }  
+                      } 
+                        
+                        
+                         if(parent !=null && child !=null){  
+                          var models=this.graph.attributes.cells.models;
+                          console.log(models)
+                          var parentCell=this.findCell(models,parent);
+                          var childCell=this.findCell(models,child);   
+
+                            this.graph.addCell(new joint.dia.Link({
+                               source: { id:parentCell.id},
+                               target: { id:childCell.id},
+                            }));
+                      } 
                         
                      }
             }
@@ -276,7 +289,8 @@ export class EditAttackTree implements OnInit, OnDestroy {
             this.assetassetmbr.status="active";
             this.assetassetmbr.lastmodifiedby="ali"
             this.assetassetmbr.domain="DEMO";
-                  this.subscribeToSaveResponse(this.assetassetmbrService.create(this.assetassetmbr));   
+                  this.subscribeToSaveResponse(this.assetassetmbrService.create(this.assetassetmbr));  
+                  this.assetassetmbr=null; 
               });
            
         }
