@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { EventManager , AlertService } from 'ng-jhipster';
 import { Response } from '@angular/http';
 import { Model } from './model.model';
@@ -88,9 +89,11 @@ export class EditAttackTree implements OnInit, OnDestroy {
     
      findCell(array,value) {
         for (var i = 0; i < array.length; i++) {
+            if(array[i].attributes.type === "basic.Rect"){
             if (array[i].attributes.attrs.instance === value) {
                 return array[i];
             }
+           }
         }
         return null;
     }
@@ -99,13 +102,16 @@ export class EditAttackTree implements OnInit, OnDestroy {
     loadAssetassetmbr(id){
         this.assetassetmbrService.loadAssetassetmbr(id).subscribe(
             (res: Response) => {
+                console.log(res.json());
                     var arr=[];
                     for(var i=0;i< res.json().length;i++){
                         var a;
                         var b;
                         var child=this.findByKey(arr,res.json()[i].childinstance);
                         var parent=this.findByKey(arr,res.json()[i].parentinstance);
-                        if(parent ===null && child ===null){                           
+                        console.log(parent+"--------------------------------------"+child)
+                      if(parent ===null && child ===null){ 
+                       console.log("11111111111111111111111111111111111111");                          
                              arr.push(res.json()[i].parentinstance);
                              a = new joint.shapes.basic.Rect({
                               position: {x: res.json()[i].parentxcoordinate, y: res.json()[i].parentycoordinate},
@@ -130,7 +136,7 @@ export class EditAttackTree implements OnInit, OnDestroy {
                             }));
                     }
                       if(parent ===null && child !=null){  
-                      
+                       console.log("322222222222222222222222222222222222");
                            var models=this.graph.attributes.cells.models;
                           var childCell=this.findCell(models,child);
                           arr.push(res.json()[i].parentinstance);
@@ -152,8 +158,9 @@ export class EditAttackTree implements OnInit, OnDestroy {
                         
                       if(parent !=null && child ===null){  
                           var models=this.graph.attributes.cells.models;
-                          console.log(parent)
+                          console.log(models)
                           var parentCell=this.findCell(models,parent);
+                          console.log(parentCell);
                           arr.push(res.json()[i].childinstance);
                                 b = new joint.shapes.basic.Rect({
                               position: {x: res.json()[i].childxcoordinate, y: res.json()[i].childycoordinate},
@@ -161,9 +168,8 @@ export class EditAttackTree implements OnInit, OnDestroy {
                               size: {width: 100, height: 40},
                               attrs: {text: {text: res.json()[i].childasset.nameshort}}
                            });
-                          b.attr('instance', res.json()[i].childinstance)
+                            b.attr('instance', res.json()[i].childinstance)
                             this.graph.addCell(b);
-                          
                             this.graph.addCell(new joint.dia.Link({
                                source: { id:parentCell.id},
                                target: { id:b.id},
@@ -239,38 +245,41 @@ export class EditAttackTree implements OnInit, OnDestroy {
             }
         });
      }
-    //private lastmodifieddatetime: Date = new Date
+
     saveModel(){
-       
-        
         for(var mbr=0;mbr<this.assetasset.length;mbr++){            
+             this.save(mbr); 
+        }
+
+    }
+        
+        
+        
+        save(mbr){
             var parentasset;
             var childasset;
-            this.assetassetmbr.comment="comment";
+           
+            this.assetassetmbr.model=this.model;               
+              Observable.forkJoin( this.assetService.find(this.assetasset[mbr].sourceId), this.assetService.find(this.assetasset[mbr].targetId)).subscribe(res => {
+                    this.assetassetmbr.parentasset=res[0];
+                    this.assetassetmbr.childasset=res[1];
+                   this.assetassetmbr.comment="comment";
             this.assetassetmbr.parentxcoordinate=this.assetasset[mbr].parentxcoordinate;
             this.assetassetmbr.parentycoordinate=this.assetasset[mbr].parentycoordinate;
             this.assetassetmbr.childxcoordinate=this.assetasset[mbr].childxcoordinate;
             this.assetassetmbr.childycoordinate=this.assetasset[mbr].childycoordinate;
+            
             this.assetassetmbr.parentinstance=this.assetasset[mbr].parentInstance;
             this.assetassetmbr.childinstance=this.assetasset[mbr].childInstance;
+            
             this.assetassetmbr.nameshort="nameshort";
             this.assetassetmbr.status="active";
             this.assetassetmbr.lastmodifiedby="ali"
-           // this.assetassetmbr.lastmodifieddatetime=this.lastmodifieddatetime;
             this.assetassetmbr.domain="DEMO";
-            this.assetassetmbr.model=this.model;    
-            this.assetService.find(this.assetasset[mbr].sourceId).subscribe((parentasset) => {
-                 this.assetassetmbr.parentasset=parentasset;
-               this.assetService.find(this.assetasset[0].targetId).subscribe((childasset) => {
-                     this.assetassetmbr.childasset=childasset;
-                          this.subscribeToSaveResponse(this.assetassetmbrService.create(this.assetassetmbr));
-            });
-            });
-            
-     
+                  this.subscribeToSaveResponse(this.assetassetmbrService.create(this.assetassetmbr));   
+              });
+           
         }
-
-    }
 
       private subscribeToSaveResponse(result: Observable<Assetassetmbr>) {
         result.subscribe((res: Assetassetmbr) =>
