@@ -109,9 +109,7 @@ export class EditAttackTree implements OnInit, OnDestroy {
                         var b;
                         var child=this.findByKey(arr,res.json()[i].childinstance);
                         var parent=this.findByKey(arr,res.json()[i].parentinstance);
-                        console.log(parent+"--------------------------------------"+child)
                       if(parent ===null && child ===null){ 
-                       console.log("11111111111111111111111111111111111111");                          
                              arr.push(res.json()[i].parentinstance);
                              a = new joint.shapes.basic.Rect({
                               position: {x: res.json()[i].parentxcoordinate, y: res.json()[i].parentycoordinate},
@@ -119,7 +117,8 @@ export class EditAttackTree implements OnInit, OnDestroy {
                               size: {width: 100, height: 40},
                               attrs: {text: {text: res.json()[i].parentasset.nameshort}}
                             });
-                             a.attr('instance', res.json()[i].parentinstance)
+                             a.attr('instance', res.json()[i].parentinstance);
+                             a.attr('id', res.json()[i].parentasset.id);
                              this.graph.addCell(a);
                              arr.push(res.json()[i].childinstance);
                               b = new joint.shapes.basic.Rect({
@@ -129,6 +128,7 @@ export class EditAttackTree implements OnInit, OnDestroy {
                               attrs: {text: {text: res.json()[i].childasset.nameshort}}
                            });
                             b.attr('instance', res.json()[i].childinstance)
+                            b.attr('id', res.json()[i].childasset.id);
                             this.graph.addCell(b);
                             this.graph.addCell(new joint.dia.Link({
                                source: { id:a.id},
@@ -136,17 +136,17 @@ export class EditAttackTree implements OnInit, OnDestroy {
                             }));
                     }
                       if(parent ===null && child !=null){  
-                       console.log("322222222222222222222222222222222222");
                            var models=this.graph.attributes.cells.models;
-                          var childCell=this.findCell(models,child);
-                          arr.push(res.json()[i].parentinstance);
+                           var childCell=this.findCell(models,child);
+                           arr.push(res.json()[i].parentinstance);
                                 b = new joint.shapes.basic.Rect({
                               position: {x: res.json()[i].parentxcoordinate, y: res.json()[i].parentycoordinate},
                               rect: { fill: "red" },
                               size: {width: 100, height: 40},
                               attrs: {text: {text: res.json()[i].parentasset.nameshort}}
                            });
-                          b.attr('instance', res.json()[i].parentinstance)
+                          b.attr('instance', res.json()[i].parentinstance);
+                          b.attr('id', res.json()[i].parentasset.id);
                             this.graph.addCell(b);
                           
                             this.graph.addCell(new joint.dia.Link({
@@ -169,6 +169,7 @@ export class EditAttackTree implements OnInit, OnDestroy {
                               attrs: {text: {text: res.json()[i].childasset.nameshort}}
                            });
                             b.attr('instance', res.json()[i].childinstance)
+                            b.attr('id', res.json()[i].childasset.id);
                             this.graph.addCell(b);
                             this.graph.addCell(new joint.dia.Link({
                                source: { id:parentCell.id},
@@ -229,14 +230,16 @@ export class EditAttackTree implements OnInit, OnDestroy {
               el: $('#paper'),
               width: 650,
               height: 400,
-              gridSize: 20,
+              gridSize: 10,
               model: this.graph,
               markAvailable: true,
               linkConnectionPoint: joint.util.shapePerimeterConnectionPoint,
               snapLinks: true
-         });
+            });
         
-       
+        paper.drawGrid(true);
+        
+
         
       paper.on('cell:pointerup', (cellView, evt, x, y) => {
           if(this.line==true){
@@ -263,16 +266,17 @@ export class EditAttackTree implements OnInit, OnDestroy {
         for(var mbr=0;mbr<this.assetasset.length;mbr++){            
              this.save(mbr); 
         }
-
-    }
+     }
         
-        
+    
         
         save(mbr){
             var parentasset;
             var childasset;
            
-            this.assetassetmbr.model=this.model;               
+            this.assetassetmbr.model=this.model;   
+            console.log(mbr);            
+            console.log(this.assetasset);
               Observable.forkJoin( this.assetService.find(this.assetasset[mbr].sourceId), this.assetService.find(this.assetasset[mbr].targetId)).subscribe(res => {
                     this.assetassetmbr.parentasset=res[0];
                     this.assetassetmbr.childasset=res[1];
@@ -290,7 +294,7 @@ export class EditAttackTree implements OnInit, OnDestroy {
             this.assetassetmbr.lastmodifiedby="ali"
             this.assetassetmbr.domain="DEMO";
                   this.subscribeToSaveResponse(this.assetassetmbrService.create(this.assetassetmbr));  
-                  this.assetassetmbr=null; 
+                this.assetasset=[];
               });
            
         }
@@ -298,7 +302,8 @@ export class EditAttackTree implements OnInit, OnDestroy {
       private subscribeToSaveResponse(result: Observable<Assetassetmbr>) {
         result.subscribe((res: Assetassetmbr) =>
             this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
-    }
+    
+      }
     
       private onSaveSuccess(result: Assetassetmbr) {
         this.eventManager.broadcast({ name: 'assetassetmbrListModification', content: 'OK'});
