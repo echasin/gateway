@@ -18,10 +18,10 @@ import * as $ from "jquery";
 
 
 @Component({
-    selector: 'jhi-edit-attacktree',
-    templateUrl: './edit-attacktree.component.html'
+    selector: 'jhi-edit-modelasset',
+    templateUrl: './edit-model-asset.component.html'
 })
-export class EditAttackTree implements OnInit, OnDestroy {
+export class EditModelAsset implements OnInit, OnDestroy {
 
     
     assets: Asset[];
