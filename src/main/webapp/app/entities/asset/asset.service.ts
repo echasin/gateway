@@ -10,6 +10,7 @@ export class AssetService {
 
     private resourceUrl = 'asset/api/assets';
     private resourceSearchUrl = 'asset/api/_search/assets';
+    private colorUrl = 'asset/api/getColor';
 
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
@@ -42,6 +43,12 @@ export class AssetService {
             .map((res: Response) => this.convertResponse(res))
         ;
     }
+    
+     getColor(id: number): Observable<Response> {
+        return this.http.get(`${this.colorUrl}/${id}`);
+    }
+    
+
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);

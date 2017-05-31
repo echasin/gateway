@@ -74,8 +74,8 @@ export class EditAttackTree implements OnInit, OnDestroy {
             (res: Response) => this.onSuccessLoadAllAssets(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
          );
-    }
     
+     }
     
     
      findByKey(array, value) {
@@ -102,33 +102,32 @@ export class EditAttackTree implements OnInit, OnDestroy {
     loadAssetassetmbr(id){
         this.assetassetmbrService.loadAssetassetmbr(id).subscribe(
             (res: Response) => {
-                console.log(res.json());
+                
                     var arr=[];
                     for(var i=0;i< res.json().length;i++){
                         var a;
                         var b;
-                        var child=this.findByKey(arr,res.json()[i].childinstance);
-                        var parent=this.findByKey(arr,res.json()[i].parentinstance);
+                        var child=this.findByKey(arr,res.json()[i].assetassetmbr.childinstance);
+                        var parent=this.findByKey(arr,res.json()[i].assetassetmbr.parentinstance);
+                        console.log(res.json()[i]);
                       if(parent ===null && child ===null){ 
-                             arr.push(res.json()[i].parentinstance);
+                             arr.push(res.json()[i].assetassetmbr.parentinstance);
                              a = new joint.shapes.basic.Rect({
-                              position: {x: res.json()[i].parentxcoordinate, y: res.json()[i].parentycoordinate},
-                              rect: { fill: "red" },
+                              position: {x: res.json()[i].assetassetmbr.parentxcoordinate, y: res.json()[i].assetassetmbr.parentycoordinate},
                               size: {width: 100, height: 40},
-                              attrs: {text: {text: res.json()[i].parentasset.nameshort}}
+                              attrs: {rect: { fill: res.json()[i].parentcolor },text: {text: res.json()[i].assetassetmbr.parentasset.nameshort}}
                             });
-                             a.attr('instance', res.json()[i].parentinstance);
-                             a.attr('id', res.json()[i].parentasset.id);
+                             a.attr('instance', res.json()[i].assetassetmbr.parentinstance);
+                             a.attr('id', res.json()[i].assetassetmbr.parentasset.id);
                              this.graph.addCell(a);
-                             arr.push(res.json()[i].childinstance);
+                             arr.push(res.json()[i].assetassetmbr.childinstance);
                               b = new joint.shapes.basic.Rect({
-                              position: {x: res.json()[i].childxcoordinate, y: res.json()[i].childycoordinate},
-                              rect: { fill: "red" },
+                              position: {x: res.json()[i].assetassetmbr.childxcoordinate, y: res.json()[i].assetassetmbr.childycoordinate},
                               size: {width: 100, height: 40},
-                              attrs: {text: {text: res.json()[i].childasset.nameshort}}
+                              attrs: {rect: { fill: res.json()[i].childcolor },text: {text: res.json()[i].assetassetmbr.childasset.nameshort}}
                            });
-                            b.attr('instance', res.json()[i].childinstance)
-                            b.attr('id', res.json()[i].childasset.id);
+                            b.attr('instance', res.json()[i].assetassetmbr.childinstance)
+                            b.attr('id', res.json()[i].assetassetmbr.childasset.id);
                             this.graph.addCell(b);
                             this.graph.addCell(new joint.dia.Link({
                                source: { id:a.id},
@@ -138,15 +137,14 @@ export class EditAttackTree implements OnInit, OnDestroy {
                       if(parent ===null && child !=null){  
                            var models=this.graph.attributes.cells.models;
                            var childCell=this.findCell(models,child);
-                           arr.push(res.json()[i].parentinstance);
+                           arr.push(res.json()[i].assetassetmbr.parentinstance);
                                 b = new joint.shapes.basic.Rect({
-                              position: {x: res.json()[i].parentxcoordinate, y: res.json()[i].parentycoordinate},
-                              rect: { fill: "red" },
+                              position: {x: res.json()[i].assetassetmbr.parentxcoordinate, y: res.json()[i].assetassetmbr.parentycoordinate},
                               size: {width: 100, height: 40},
-                              attrs: {text: {text: res.json()[i].parentasset.nameshort}}
+                              attrs: {rect: { fill: res.json()[i].parentcolor },text: {text: res.json()[i].assetassetmbr.parentasset.nameshort}}
                            });
-                          b.attr('instance', res.json()[i].parentinstance);
-                          b.attr('id', res.json()[i].parentasset.id);
+                          b.attr('instance', res.json()[i].assetassetmbr.parentinstance);
+                          b.attr('id', res.json()[i].assetassetmbr.parentasset.id);
                             this.graph.addCell(b);
                           
                             this.graph.addCell(new joint.dia.Link({
@@ -156,20 +154,19 @@ export class EditAttackTree implements OnInit, OnDestroy {
                       
                       }
                         
-                      if(parent !=null && child ===null){  
+                      if(parent !=null && child ===null){
                           var models=this.graph.attributes.cells.models;
                           console.log(models)
                           var parentCell=this.findCell(models,parent);
                           console.log(parentCell);
-                          arr.push(res.json()[i].childinstance);
-                                b = new joint.shapes.basic.Rect({
-                              position: {x: res.json()[i].childxcoordinate, y: res.json()[i].childycoordinate},
-                              rect: { fill: "red" },
+                          arr.push(res.json()[i].assetassetmbr.childinstance);
+                             b = new joint.shapes.basic.Rect({
+                              position: {x: res.json()[i].assetassetmbr.childxcoordinate, y: res.json()[i].assetassetmbr.childycoordinate},
                               size: {width: 100, height: 40},
-                              attrs: {text: {text: res.json()[i].childasset.nameshort}}
+                              attrs: {rect: { fill: res.json()[i].childcolor },text: {text: res.json()[i].assetassetmbr.childasset.nameshort}}
                            });
-                            b.attr('instance', res.json()[i].childinstance)
-                            b.attr('id', res.json()[i].childasset.id);
+                            b.attr('instance', res.json()[i].assetassetmbr.childinstance)
+                            b.attr('id', res.json()[i].assetassetmbr.childasset.id);
                             this.graph.addCell(b);
                             this.graph.addCell(new joint.dia.Link({
                                source: { id:parentCell.id},
@@ -294,7 +291,7 @@ export class EditAttackTree implements OnInit, OnDestroy {
             this.assetassetmbr.lastmodifiedby="ali"
             this.assetassetmbr.domain="DEMO";
                   this.subscribeToSaveResponse(this.assetassetmbrService.create(this.assetassetmbr));  
-                this.assetasset=[];
+               // this.assetasset=[];
               });
            
         }
@@ -320,16 +317,19 @@ export class EditAttackTree implements OnInit, OnDestroy {
         this.onError(error);
     }
     
+    
     addAsset(id,nameshort){
+       this.assetService.getColor(id).subscribe(res => {
         const a = new joint.shapes.basic.Rect({
           position: {x: 50, y: 50},
-          rect: { fill: "red" },
           size: {width: 100, height: 40},
-          attrs: {text: {text: nameshort}}
+          attrs: {rect: { fill: res['_body'] },text: {text: nameshort}}
        });
         a.attr('instance', a.id)
         a.attr('id', id)
-       this.graph.addCell(a);
+        this.graph.addCell(a);
+            
+           });
      }
     
     addLine(){
