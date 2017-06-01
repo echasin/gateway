@@ -256,7 +256,10 @@ export class EditModelAsset implements OnInit, OnDestroy {
             if (link.get('source').id && link.get('target').id) {
                 var source = this.graph.getCell(link.get('source'));
                 var target = this.graph.getCell(link.get('target'));
-                this.assetasset.push({"sourceId": source.attributes.attrs.id,"targetId": target.attributes.attrs.id,"parentxcoordinate": source.attributes.position.x,"parentycoordinate": source.attributes.position.y,"childxcoordinate": target.attributes.position.x,"childycoordinate": target.attributes.position.y,"parentInstance":source.attributes.attrs.instance,"childInstance":target.attributes.attrs.instance});                        
+                this.assetasset.push({"sourceId": source.attributes.attrs.id,"targetId": target.attributes.attrs.id,
+                    "parentxcoordinate": source.attributes.position.x,"parentycoordinate": source.attributes.position.y,
+                    "childxcoordinate": target.attributes.position.x,"childycoordinate": target.attributes.position.y,
+                    "parentInstance":source.attributes.attrs.instance,"childInstance":target.attributes.attrs.instance});                        
             }
         });
      }
