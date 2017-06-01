@@ -1,20 +1,41 @@
-<div class="row"  *ngIf="model">
- <div class="col-sm-6">
+<div class="row">
+ <div class="col-sm-2" *ngIf="model">
    <h2><span jhiTranslate="gatewayApp.model.detail.title">Model</span> {{model.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
  </div>
- <div class="col-sm-2">
-    <button type="submit"
-                              [routerLink]="['/edit-attacktree', model.id ]"
-                                class="btn btn-info">
-                            <span>Edit Model</span>
-                        </button>
- </div>
 </div>
 
 <div class="row">
- <div class="col-sm-8">
+ <div class="col-sm-2">
+     <div>
+        <table class="table table-striped">
+            <thead>
+             <tr>
+               <th><span class="fa fa-sort"></span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let asset of assets ;trackBy: trackId">
+                <td (click)="addAsset(asset.id,asset.nameshort)">{{asset.nameshort}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+ </div>
+ <div class="col-sm-6">
+ 
+  <button type="submit"
+            (click)="addLine()"
+            class="btn btn-info">
+        <span> Add Line</span>
+    </button>
+      <button type="submit"
+            (click)="saveModel()"
+            class="btn btn-success">
+        <span> Save Model</span>
+    </button>
+ 
     <div id="paper"></div>
  </div>
 <div class="col-sm-2">
