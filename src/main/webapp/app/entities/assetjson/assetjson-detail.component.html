@@ -1,0 +1,55 @@
+
+<div *ngIf="assetjson">
+    <h2><span jhiTranslate="apprefactoryApp.assetjson.detail.title">Assetjson</span> {{assetjson.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="apprefactoryApp.assetjson.arrayname">Arrayname</span></dt>
+        <dd>
+            <span>{{assetjson.arrayname}}</span>
+        </dd>
+        <dt><span jhiTranslate="apprefactoryApp.assetjson.arraynameshort">Arraynameshort</span></dt>
+        <dd>
+            <span>{{assetjson.arraynameshort}}</span>
+        </dd>
+        <dt><span jhiTranslate="apprefactoryApp.assetjson.description">Description</span></dt>
+        <dd>
+            <span>{{assetjson.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="apprefactoryApp.assetjson.details">Details</span></dt>
+        <dd>
+            <span>{{assetjson.details}}</span>
+        </dd>
+        <dt><span jhiTranslate="apprefactoryApp.assetjson.lastmodifiedby">Lastmodifiedby</span></dt>
+        <dd>
+            <span>{{assetjson.lastmodifiedby}}</span>
+        </dd>
+        <dt><span jhiTranslate="apprefactoryApp.assetjson.lastmodifieddatetime">Lastmodifieddatetime</span></dt>
+        <dd>
+            <span>{{assetjson.lastmodifieddatetime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="apprefactoryApp.assetjson.domain">Domain</span></dt>
+        <dd>
+            <span>{{assetjson.domain}}</span>
+        </dd>
+        <dt><span jhiTranslate="apprefactoryApp.assetjson.asset">Asset</span></dt>
+        <dd>
+            <div *ngIf="assetjson.asset">
+                <a [routerLink]="['/asset', assetjson.asset?.id]">{{assetjson.asset?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'assetjson/'+ assetjson.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

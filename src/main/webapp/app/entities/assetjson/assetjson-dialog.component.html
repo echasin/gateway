@@ -1,0 +1,133 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAssetjsonLabel" jhiTranslate="apprefactoryApp.assetjson.home.createOrEditLabel">Create or edit a Assetjson</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!assetjson.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="assetjson.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="apprefactoryApp.assetjson.arrayname" for="field_arrayname">Arrayname</label>
+            <input type="text" class="form-control" name="arrayname" id="field_arrayname"
+                [(ngModel)]="assetjson.arrayname"
+            required maxlength="50" />
+            <div [hidden]="!(editForm.controls.arrayname?.dirty && editForm.controls.arrayname?.invalid)">
+                 <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.arrayname?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>              
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.arrayname?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="apprefactoryApp.assetjson.arraynameshort" for="field_arraynameshort">Arraynameshort</label>
+            <input type="text" class="form-control" name="arraynameshort" id="field_arraynameshort"
+                [(ngModel)]="assetjson.arraynameshort"
+            maxlength="20" />
+            <div [hidden]="!(editForm.controls.arraynameshort?.dirty && editForm.controls.arraynameshort?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.arraynameshort?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
+                   This field cannot be longer than 20 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="apprefactoryApp.assetjson.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="assetjson.description"
+            maxlength="255" />
+            <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="apprefactoryApp.assetjson.details" for="field_details">Details</label>
+            <input type="text" class="form-control" name="details" id="field_details"
+                [(ngModel)]="assetjson.details"
+            maxlength="10000" />
+            <div [hidden]="!(editForm.controls.details?.dirty && editForm.controls.details?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.details?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 10000 }">
+                   This field cannot be longer than 10000 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="apprefactoryApp.assetjson.lastmodifiedby" for="field_lastmodifiedby">Lastmodifiedby</label>
+            <input type="text" class="form-control" name="lastmodifiedby" id="field_lastmodifiedby"
+                [(ngModel)]="assetjson.lastmodifiedby"
+            required maxlength="50" />
+            <div [hidden]="!(editForm.controls.lastmodifiedby?.dirty && editForm.controls.lastmodifiedby?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastmodifiedby?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastmodifiedby?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="apprefactoryApp.assetjson.lastmodifieddatetime" for="field_lastmodifieddatetime">Lastmodifieddatetime</label>
+            <div class="d-flex">
+                <input id="field_lastmodifieddatetime" type="datetime-local" class="form-control" name="lastmodifieddatetime" [(ngModel)]="assetjson.lastmodifieddatetime"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.lastmodifieddatetime?.dirty && editForm.controls.lastmodifieddatetime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastmodifieddatetime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.lastmodifieddatetime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="apprefactoryApp.assetjson.domain" for="field_domain">Domain</label>
+            <input type="text" class="form-control" name="domain" id="field_domain"
+                [(ngModel)]="assetjson.domain"
+            required maxlength="50" />
+            <div [hidden]="!(editForm.controls.domain?.dirty && editForm.controls.domain?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.domain?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.domain?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="apprefactoryApp.assetjson.asset" for="field_asset">Asset</label>
+            <select class="form-control" id="field_asset" name="asset" [(ngModel)]="assetjson.asset" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="assetOption.id === assetjson.asset?.id ? assetjson.asset : assetOption" *ngFor="let assetOption of assets; trackBy: trackAssetById">{{assetOption.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

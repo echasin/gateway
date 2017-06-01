@@ -1,0 +1,29 @@
+{
+    "apprefactoryApp": {
+        "assetjson" : {
+            "home": {
+                "title": "Assetjsons",
+                "createLabel": "Create a new Assetjson",
+                "createOrEditLabel": "Create or edit a Assetjson",
+                "search": "Search for Assetjson"
+            },
+            "created": "A new Assetjson is created with identifier {{ param }}",
+            "updated": "A Assetjson is updated with identifier {{ param }}",
+            "deleted": "A Assetjson is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Assetjson {{ id }}?"
+            },
+            "detail": {
+                "title": "Assetjson"
+            },
+            "arrayname": "Arrayname",
+            "arraynameshort": "Arraynameshort",
+            "description": "Description",
+            "details": "Details",
+            "lastmodifiedby": "Lastmodifiedby",
+            "lastmodifieddatetime": "Lastmodifieddatetime",
+            "domain": "Domain",
+            "asset": "Asset"
+        }
+    }
+}
