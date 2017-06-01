@@ -8,6 +8,7 @@
             "entities": {
                 "main": "Entities",
                 "asset": "Asset",
+				 "assetjson": "Assetjson",
                 "assetassetmbr": "Assetassetmbr",
                 "assetassetmbrrecordtype": "Assetassetmbrrecordtype",
                 "assetrecordtype": "Assetrecordtype",
