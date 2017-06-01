@@ -9,6 +9,7 @@ import { EventManager, AlertService } from 'ng-jhipster';
 import { Assetrecordtype } from './assetrecordtype.model';
 import { AssetrecordtypePopupService } from './assetrecordtype-popup.service';
 import { AssetrecordtypeService } from './assetrecordtype.service';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-assetrecordtype-dialog',
@@ -24,7 +25,8 @@ export class AssetrecordtypeDialogComponent implements OnInit {
         public activeModal: NgbActiveModal,
         private alertService: AlertService,
         private assetrecordtypeService: AssetrecordtypeService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private principal: Principal
     ) {
     }
 
@@ -42,8 +44,12 @@ export class AssetrecordtypeDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.assetrecordtypeService.update(this.assetrecordtype));
         } else {
-            this.subscribeToSaveResponse(
-                this.assetrecordtypeService.create(this.assetrecordtype));
+             this.principal.identity().then((account) => {
+             this.assetrecordtype.lastmodifiedby=account.lastModifiedBy;
+             this.assetrecordtype.status="Active";
+             this.subscribeToSaveResponse(
+             this.assetrecordtypeService.create(this.assetrecordtype));
+            });
         }
     }
 
