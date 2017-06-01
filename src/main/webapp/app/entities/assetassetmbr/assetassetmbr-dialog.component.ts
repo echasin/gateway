@@ -9,9 +9,11 @@ import { EventManager, AlertService } from 'ng-jhipster';
 import { Assetassetmbr } from './assetassetmbr.model';
 import { AssetassetmbrPopupService } from './assetassetmbr-popup.service';
 import { AssetassetmbrService } from './assetassetmbr.service';
+import { Assetassetmbrrecordtype, AssetassetmbrrecordtypeService } from '../assetassetmbrrecordtype';
 import { Asset, AssetService } from '../asset';
 import { Model, ModelService } from '../model';
 import { Principal } from '../../shared';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-assetassetmbr-dialog',
@@ -23,6 +25,8 @@ export class AssetassetmbrDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
+    assetassetmbrrecordtypes: Assetassetmbrrecordtype[];
+
     assets: Asset[];
 
     models: Model[];
@@ -31,6 +35,7 @@ export class AssetassetmbrDialogComponent implements OnInit {
         public activeModal: NgbActiveModal,
         private alertService: AlertService,
         private assetassetmbrService: AssetassetmbrService,
+        private assetassetmbrrecordtypeService: AssetassetmbrrecordtypeService,
         private assetService: AssetService,
         private modelService: ModelService,
         private eventManager: EventManager,
@@ -41,10 +46,12 @@ export class AssetassetmbrDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.assetService.query().subscribe(
-            (res: Response) => { this.assets = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.modelService.query().subscribe(
-            (res: Response) => { this.models = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.assetassetmbrrecordtypeService.query()
+            .subscribe((res: ResponseWrapper) => { this.assetassetmbrrecordtypes = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.assetService.query()
+            .subscribe((res: ResponseWrapper) => { this.assets = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.modelService.query()
+            .subscribe((res: ResponseWrapper) => { this.models = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
     clear() {
         this.activeModal.dismiss('cancel');
@@ -88,6 +95,10 @@ export class AssetassetmbrDialogComponent implements OnInit {
 
     private onError(error) {
         this.alertService.error(error.message, null, null);
+    }
+
+    trackAssetassetmbrrecordtypeById(index: number, item: Assetassetmbrrecordtype) {
+        return item.id;
     }
 
     trackAssetById(index: number, item: Asset) {

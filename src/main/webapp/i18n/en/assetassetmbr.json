@@ -24,6 +24,7 @@
             "lastmodifiedby": "Lastmodifiedby",
             "lastmodifieddatetime": "Lastmodifieddatetime",
             "domain": "Domain",
+            "assetassetmbrrecordtype": "Assetassetmbrrecordtype",
             "parentasset": "Parentasset",
             "childasset": "Childasset",
             "model": "Model"

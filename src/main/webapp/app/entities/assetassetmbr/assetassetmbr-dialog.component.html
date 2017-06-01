@@ -90,6 +90,13 @@
         </div>
 
         <div class="form-group">
+            <label jhiTranslate="gatewayApp.assetassetmbr.assetassetmbrrecordtype" for="field_assetassetmbrrecordtype">Assetassetmbrrecordtype</label>
+            <select class="form-control" id="field_assetassetmbrrecordtype" name="assetassetmbrrecordtype" [(ngModel)]="assetassetmbr.assetassetmbrrecordtype" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="assetassetmbrrecordtypeOption.id === assetassetmbr.assetassetmbrrecordtype?.id ? assetassetmbr.assetassetmbrrecordtype : assetassetmbrrecordtypeOption" *ngFor="let assetassetmbrrecordtypeOption of assetassetmbrrecordtypes; trackBy: trackAssetassetmbrrecordtypeById">{{assetassetmbrrecordtypeOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label jhiTranslate="gatewayApp.assetassetmbr.parentasset" for="field_parentasset">Parentasset</label>
             <select class="form-control" id="field_parentasset" name="parentasset" [(ngModel)]="assetassetmbr.parentasset"  required>
                 <option [ngValue]="assetOption.id === assetassetmbr.parentasset?.id ? assetassetmbr.parentasset : assetOption" *ngFor="let assetOption of assets; trackBy: trackAssetById">{{assetOption.name}}</option>
@@ -115,15 +122,10 @@
         </div>
         <div class="form-group">
             <label jhiTranslate="gatewayApp.assetassetmbr.model" for="field_model">Model</label>
-            <select class="form-control" id="field_model" name="model" [(ngModel)]="assetassetmbr.model"  required>
+            <select class="form-control" id="field_model" name="model" [(ngModel)]="assetassetmbr.model" >
+                <option [ngValue]="null"></option>
                 <option [ngValue]="modelOption.id === assetassetmbr.model?.id ? assetassetmbr.model : modelOption" *ngFor="let modelOption of models; trackBy: trackModelById">{{modelOption.name}}</option>
             </select>
-        </div>
-        <div [hidden]="!(editForm.controls.model?.dirty && editForm.controls.model?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!editForm.controls.model?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
         </div>
     </div>
     <div class="modal-footer">
