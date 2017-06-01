@@ -5,8 +5,10 @@ export class Assetassetmbr {
     constructor(
         public id?: number,
         public comment?: string,
-        public xcoordinate?: number,
-        public ycoordinate?: number,
+        public parentxcoordinate?: number,
+        public parentycoordinate?: number,
+        public childxcoordinate?: number,
+        public childycoordinate?: number,
         public parentinstance?: string,
         public childinstance?: string,
         public nameshort?: string,

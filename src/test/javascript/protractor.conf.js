@@ -10,13 +10,14 @@ exports.config = {
         './e2e/entities/*.spec.ts'
     ],
 
+    
     capabilities: {
         'browserName': 'chrome',
         'phantomjs.binary.path': require('phantomjs-prebuilt').path,
         'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG']
     },
 
-    directConnect: true,
+   // directConnect: true,
 
     baseUrl: 'http://localhost:8099/',
 
