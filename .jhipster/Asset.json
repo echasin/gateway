@@ -47,7 +47,7 @@
             ],
             "fieldValidateRulesMaxlength": "255"
         },
- 	{
+       {
             "fieldName": "details",
             "fieldType": "String"
         },

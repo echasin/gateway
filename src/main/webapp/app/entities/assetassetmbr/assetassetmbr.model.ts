@@ -1,3 +1,4 @@
+import { Assetassetmbrrecordtype } from '../assetassetmbrrecordtype';
 import { Asset } from '../asset';
 import { Model } from '../model';
 export class Assetassetmbr {
@@ -16,6 +17,7 @@ export class Assetassetmbr {
         public lastmodifiedby?: string,
         public lastmodifieddatetime?: any,
         public domain?: string,
+        public assetassetmbrrecordtype?: Assetassetmbrrecordtype,
         public parentasset?: Asset,
         public childasset?: Asset,
         public model?: Model,

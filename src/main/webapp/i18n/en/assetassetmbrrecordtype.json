@@ -1,0 +1,33 @@
+{
+    "gatewayApp": {
+        "assetassetmbrrecordtype" : {
+            "home": {
+                "title": "Assetassetmbrrecordtypes",
+                "createLabel": "Create a new Assetassetmbrrecordtype",
+                "createOrEditLabel": "Create or edit a Assetassetmbrrecordtype",
+                "search": "Search for Assetassetmbrrecordtype"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Assetassetmbrrecordtype {{ id }}?"
+            },
+            "detail": {
+                "title": "Assetassetmbrrecordtype"
+            },
+            "name": "Name",
+            "nameshort": "Nameshort",
+            "description": "Description",
+            "status": "Status",
+            "lastmodifiedby": "Lastmodifiedby",
+            "lastmodifieddatetime": "Lastmodifieddatetime",
+            "domain": "Domain",
+            "assetassetmbr": "Assetassetmbr"
+        }
+    },
+    "assetApp": {
+        "assetassetmbrrecordtype" : {
+            "created": "A new Assetassetmbrrecordtype is created with identifier {{ param }}",
+            "updated": "A Assetassetmbrrecordtype is updated with identifier {{ param }}",
+            "deleted": "A Assetassetmbrrecordtype is deleted with identifier {{ param }}"
+        }
+    }
+}

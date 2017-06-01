@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { DateUtils } from 'ng-jhipster';
 
 import { Assetassetmbr } from './assetassetmbr.model';
-import { DateUtils } from 'ng-jhipster';
+import { ResponseWrapper, createRequestOption } from '../../shared';
 
 @Injectable()
 export class AssetassetmbrService {
@@ -17,31 +18,33 @@ export class AssetassetmbrService {
     create(assetassetmbr: Assetassetmbr): Observable<Assetassetmbr> {
         const copy = this.convert(assetassetmbr);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
         });
     }
 
     update(assetassetmbr: Assetassetmbr): Observable<Assetassetmbr> {
         const copy = this.convert(assetassetmbr);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
         });
     }
 
     find(id: number): Observable<Assetassetmbr> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
-            jsonResponse.lastmodifieddatetime = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.lastmodifieddatetime);
+            this.convertItemFromServer(jsonResponse);
             return jsonResponse;
         });
     }
 
-    query(req?: any): Observable<Response> {
-        const options = this.createRequestOption(req);
+    query(req?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            .map((res: Response) => this.convertResponse(res))
-        ;
+            .map((res: Response) => this.convertResponse(res));
     }
     
     loadAssetassetmbr(id: number): Observable<Response> {
@@ -55,37 +58,23 @@ export class AssetassetmbrService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-    search(req?: any): Observable<Response> {
-        const options = this.createRequestOption(req);
+    search(req?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(req);
         return this.http.get(this.resourceSearchUrl, options)
-            .map((res: any) => this.convertResponse(res))
-        ;
+            .map((res: any) => this.convertResponse(res));
     }
 
-    private convertResponse(res: Response): Response {
+    private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {
-            jsonResponse[i].lastmodifieddatetime = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse[i].lastmodifieddatetime);
+            this.convertItemFromServer(jsonResponse[i]);
         }
-        res.json().data = jsonResponse;
-        return res;
+        return new ResponseWrapper(res.headers, jsonResponse);
     }
 
-    private createRequestOption(req?: any): BaseRequestOptions {
-        const options: BaseRequestOptions = new BaseRequestOptions();
-        if (req) {
-            const params: URLSearchParams = new URLSearchParams();
-            params.set('page', req.page);
-            params.set('size', req.size);
-            if (req.sort) {
-                params.paramsMap.set('sort', req.sort);
-            }
-            params.set('query', req.query);
-
-            options.search = params;
-        }
-        return options;
+    private convertItemFromServer(entity: any) {
+        entity.lastmodifieddatetime = this.dateUtils
+            .convertDateTimeFromServer(entity.lastmodifieddatetime);
     }
 
     private convert(assetassetmbr: Assetassetmbr): Assetassetmbr {
