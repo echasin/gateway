@@ -10,6 +10,7 @@ import { AssetService } from '../asset/asset.service';
 import { Asset } from '../asset/asset.model';
 import { AssetassetmbrService } from '../assetassetmbr/assetassetmbr.service';
 import { Assetassetmbr } from '../assetassetmbr/assetassetmbr.model';
+import { Principal } from '../../shared';
 
 import * as joint from 'jointjs';
 
@@ -43,7 +44,8 @@ export class EditModelAsset implements OnInit, OnDestroy {
         private alertService: AlertService,
         private assetService: AssetService,  
         private assetassetmbrService: AssetassetmbrService,      
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private principal: Principal
     ) {
     }
     
@@ -274,10 +276,12 @@ export class EditModelAsset implements OnInit, OnDestroy {
             this.assetassetmbr.model=this.model;   
             console.log(mbr);            
             console.log(this.assetasset);
+            
+            this.principal.identity().then((account) => {
               Observable.forkJoin( this.assetService.find(this.assetasset[mbr].sourceId), this.assetService.find(this.assetasset[mbr].targetId)).subscribe(res => {
                     this.assetassetmbr.parentasset=res[0];
                     this.assetassetmbr.childasset=res[1];
-                   this.assetassetmbr.comment="comment";
+                    this.assetassetmbr.comment="comment";
             this.assetassetmbr.parentxcoordinate=this.assetasset[mbr].parentxcoordinate;
             this.assetassetmbr.parentycoordinate=this.assetasset[mbr].parentycoordinate;
             this.assetassetmbr.childxcoordinate=this.assetasset[mbr].childxcoordinate;
@@ -288,11 +292,11 @@ export class EditModelAsset implements OnInit, OnDestroy {
             
             this.assetassetmbr.nameshort="nameshort";
             this.assetassetmbr.status="active";
-            this.assetassetmbr.lastmodifiedby="ali"
-            this.assetassetmbr.domain="DEMO";
+            this.assetassetmbr.lastmodifiedby=account.lastModifiedBy;
                   this.subscribeToSaveResponse(this.assetassetmbrService.create(this.assetassetmbr));  
                // this.assetasset=[];
               });
+            });
            
         }
 

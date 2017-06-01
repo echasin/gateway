@@ -11,6 +11,7 @@ import { AssetassetmbrPopupService } from './assetassetmbr-popup.service';
 import { AssetassetmbrService } from './assetassetmbr.service';
 import { Asset, AssetService } from '../asset';
 import { Model, ModelService } from '../model';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-assetassetmbr-dialog',
@@ -32,7 +33,8 @@ export class AssetassetmbrDialogComponent implements OnInit {
         private assetassetmbrService: AssetassetmbrService,
         private assetService: AssetService,
         private modelService: ModelService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private principal: Principal
     ) {
     }
 
@@ -54,8 +56,12 @@ export class AssetassetmbrDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.assetassetmbrService.update(this.assetassetmbr));
         } else {
-            this.subscribeToSaveResponse(
-                this.assetassetmbrService.create(this.assetassetmbr));
+              this.principal.identity().then((account) => {
+              this.assetassetmbr.lastmodifiedby=account.lastModifiedBy;
+              this.assetassetmbr.status="Active";
+              this.subscribeToSaveResponse(
+              this.assetassetmbrService.create(this.assetassetmbr));
+             });
         }
     }
 

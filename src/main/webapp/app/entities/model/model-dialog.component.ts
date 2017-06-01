@@ -10,6 +10,8 @@ import { Model } from './model.model';
 import { ModelPopupService } from './model-popup.service';
 import { ModelService } from './model.service';
 import { Modelrecordtype, ModelrecordtypeService } from '../modelrecordtype';
+import { Principal } from '../../shared';
+
 
 @Component({
     selector: 'jhi-model-dialog',
@@ -28,7 +30,8 @@ export class ModelDialogComponent implements OnInit {
         private alertService: AlertService,
         private modelService: ModelService,
         private modelrecordtypeService: ModelrecordtypeService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private principal: Principal
     ) {
     }
 
@@ -48,8 +51,12 @@ export class ModelDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.modelService.update(this.model));
         } else {
+            this.principal.identity().then((account) => {
+            this.model.lastmodifiedby=account.lastModifiedBy;
+            this.model.status="Active";
             this.subscribeToSaveResponse(
                 this.modelService.create(this.model));
+             });
         }
     }
 

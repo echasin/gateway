@@ -10,6 +10,7 @@ import { Asset } from './asset.model';
 import { AssetPopupService } from './asset-popup.service';
 import { AssetService } from './asset.service';
 import { Assetrecordtype, AssetrecordtypeService } from '../assetrecordtype';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-asset-dialog',
@@ -28,7 +29,8 @@ export class AssetDialogComponent implements OnInit {
         private alertService: AlertService,
         private assetService: AssetService,
         private assetrecordtypeService: AssetrecordtypeService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private principal: Principal
     ) {
     }
 
@@ -48,8 +50,11 @@ export class AssetDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.assetService.update(this.asset));
         } else {
-            this.subscribeToSaveResponse(
-                this.assetService.create(this.asset));
+             this.principal.identity().then((account) => {
+                 this.asset.lastmodifiedby=account.lastModifiedBy;
+                 this.asset.status="Active";
+                 this.subscribeToSaveResponse(this.assetService.create(this.asset));
+           });
         }
     }
 
