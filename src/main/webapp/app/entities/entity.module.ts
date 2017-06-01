@@ -24,5 +24,3 @@ import { GatewayModelrecordtypeModule } from './modelrecordtype/modelrecordtype.
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GatewayEntityModule {}
-
-
