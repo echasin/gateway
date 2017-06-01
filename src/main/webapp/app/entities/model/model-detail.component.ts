@@ -120,30 +120,30 @@ export class ModelDetailComponent implements OnInit, OnDestroy {
             (res: Response) => {
                 
                     var arr=[];
-                    for(var i=0;i< res.json().length;i++){
+                    for(var i=0;i< res.json.length;i++){
                         var a;
                         var b;
-                        var child=this.findByKey(arr,res.json()[i].assetassetmbr.childinstance);
-                        var parent=this.findByKey(arr,res.json()[i].assetassetmbr.parentinstance);
-                        console.log(res.json()[i]);
+                        var child=this.findByKey(arr,res.json[i].assetassetmbr.childinstance);
+                        var parent=this.findByKey(arr,res.json[i].assetassetmbr.parentinstance);
+                        console.log(res.json[i]);
                       if(parent ===null && child ===null){ 
-                             arr.push(res.json()[i].assetassetmbr.parentinstance);
+                             arr.push(res.json[i].assetassetmbr.parentinstance);
                              a = new joint.shapes.basic.Rect({
-                              position: {x: res.json()[i].assetassetmbr.parentxcoordinate, y: res.json()[i].assetassetmbr.parentycoordinate},
+                              position: {x: res.json[i].assetassetmbr.parentxcoordinate, y: res.json[i].assetassetmbr.parentycoordinate},
                               size: {width: 100, height: 40},
-                              attrs: {rect: { fill: res.json()[i].parentcolor },text: {text: res.json()[i].assetassetmbr.parentasset.nameshort}}
+                              attrs: {rect: { fill: res.json[i].parentcolor },text: {text: res.json[i].assetassetmbr.parentasset.nameshort}}
                             });
-                             a.attr('instance', res.json()[i].assetassetmbr.parentinstance);
-                             a.attr('id', res.json()[i].assetassetmbr.parentasset.id);
+                             a.attr('instance', res.json[i].assetassetmbr.parentinstance);
+                             a.attr('id', res.json[i].assetassetmbr.parentasset.id);
                              this.graph.addCell(a);
-                             arr.push(res.json()[i].assetassetmbr.childinstance);
+                             arr.push(res.json[i].assetassetmbr.childinstance);
                               b = new joint.shapes.basic.Rect({
-                              position: {x: res.json()[i].assetassetmbr.childxcoordinate, y: res.json()[i].assetassetmbr.childycoordinate},
+                              position: {x: res.json[i].assetassetmbr.childxcoordinate, y: res.json[i].assetassetmbr.childycoordinate},
                               size: {width: 100, height: 40},
-                              attrs: {rect: { fill: res.json()[i].childcolor },text: {text: res.json()[i].assetassetmbr.childasset.nameshort}}
+                              attrs: {rect: { fill: res.json[i].childcolor },text: {text: res.json[i].assetassetmbr.childasset.nameshort}}
                            });
-                            b.attr('instance', res.json()[i].assetassetmbr.childinstance)
-                            b.attr('id', res.json()[i].assetassetmbr.childasset.id);
+                            b.attr('instance', res.json[i].assetassetmbr.childinstance)
+                            b.attr('id', res.json[i].assetassetmbr.childasset.id);
                             this.graph.addCell(b);
                             this.graph.addCell(new joint.dia.Link({
                                source: { id:a.id},
@@ -153,14 +153,14 @@ export class ModelDetailComponent implements OnInit, OnDestroy {
                       if(parent ===null && child !=null){  
                            var models=this.graph.attributes.cells.models;
                            var childCell=this.findCell(models,child);
-                           arr.push(res.json()[i].assetassetmbr.parentinstance);
+                           arr.push(res.json[i].assetassetmbr.parentinstance);
                                 b = new joint.shapes.basic.Rect({
-                              position: {x: res.json()[i].assetassetmbr.parentxcoordinate, y: res.json()[i].assetassetmbr.parentycoordinate},
+                              position: {x: res.json[i].assetassetmbr.parentxcoordinate, y: res.json[i].assetassetmbr.parentycoordinate},
                               size: {width: 100, height: 40},
-                              attrs: {rect: { fill: res.json()[i].parentcolor },text: {text: res.json()[i].assetassetmbr.parentasset.nameshort}}
+                              attrs: {rect: { fill: res.json[i].parentcolor },text: {text: res.json[i].assetassetmbr.parentasset.nameshort}}
                            });
-                          b.attr('instance', res.json()[i].assetassetmbr.parentinstance);
-                          b.attr('id', res.json()[i].assetassetmbr.parentasset.id);
+                          b.attr('instance', res.json[i].assetassetmbr.parentinstance);
+                          b.attr('id', res.json[i].assetassetmbr.parentasset.id);
                             this.graph.addCell(b);
                           
                             this.graph.addCell(new joint.dia.Link({
@@ -175,14 +175,14 @@ export class ModelDetailComponent implements OnInit, OnDestroy {
                           console.log(models)
                           var parentCell=this.findCell(models,parent);
                           console.log(parentCell);
-                          arr.push(res.json()[i].assetassetmbr.childinstance);
+                          arr.push(res.json[i].assetassetmbr.childinstance);
                              b = new joint.shapes.basic.Rect({
-                              position: {x: res.json()[i].assetassetmbr.childxcoordinate, y: res.json()[i].assetassetmbr.childycoordinate},
+                              position: {x: res.json[i].assetassetmbr.childxcoordinate, y: res.json[i].assetassetmbr.childycoordinate},
                               size: {width: 100, height: 40},
-                              attrs: {rect: { fill: res.json()[i].childcolor },text: {text: res.json()[i].assetassetmbr.childasset.nameshort}}
+                              attrs: {rect: { fill: res.json[i].childcolor },text: {text: res.json[i].assetassetmbr.childasset.nameshort}}
                            });
-                            b.attr('instance', res.json()[i].assetassetmbr.childinstance)
-                            b.attr('id', res.json()[i].assetassetmbr.childasset.id);
+                            b.attr('instance', res.json[i].assetassetmbr.childinstance)
+                            b.attr('id', res.json[i].assetassetmbr.childasset.id);
                             this.graph.addCell(b);
                             this.graph.addCell(new joint.dia.Link({
                                source: { id:parentCell.id},
