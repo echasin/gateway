@@ -6,6 +6,7 @@ import { PaginationUtil } from 'ng-jhipster';
 
 import { ModelComponent } from './model.component';
 import { ModelDetailComponent } from './model-detail.component';
+import { EditModelAsset } from './edit-model-asset.component';
 import { ModelPopupComponent } from './model-dialog.component';
 import { ModelDeletePopupComponent } from './model-delete-dialog.component';
 
@@ -42,6 +43,15 @@ export const modelRoute: Routes = [
     }, {
         path: 'model/:id',
         component: ModelDetailComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'gatewayApp.model.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'edit-modelasset/:id',
+        component: EditModelAsset,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'gatewayApp.model.home.title'

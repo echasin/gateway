@@ -12,6 +12,8 @@ import { AssetassetmbrService } from './assetassetmbr.service';
 import { Assetassetmbrrecordtype, AssetassetmbrrecordtypeService } from '../assetassetmbrrecordtype';
 import { Asset, AssetService } from '../asset';
 import { Model, ModelService } from '../model';
+import { Principal } from '../../shared';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-assetassetmbr-dialog',
@@ -36,19 +38,20 @@ export class AssetassetmbrDialogComponent implements OnInit {
         private assetassetmbrrecordtypeService: AssetassetmbrrecordtypeService,
         private assetService: AssetService,
         private modelService: ModelService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private principal: Principal
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.assetassetmbrrecordtypeService.query().subscribe(
-            (res: Response) => { this.assetassetmbrrecordtypes = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.assetService.query().subscribe(
-            (res: Response) => { this.assets = res.json(); }, (res: Response) => this.onError(res.json()));
-        this.modelService.query().subscribe(
-            (res: Response) => { this.models = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.assetassetmbrrecordtypeService.query()
+            .subscribe((res: ResponseWrapper) => { this.assetassetmbrrecordtypes = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.assetService.query()
+            .subscribe((res: ResponseWrapper) => { this.assets = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.modelService.query()
+            .subscribe((res: ResponseWrapper) => { this.models = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
     clear() {
         this.activeModal.dismiss('cancel');
@@ -60,8 +63,12 @@ export class AssetassetmbrDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.assetassetmbrService.update(this.assetassetmbr));
         } else {
-            this.subscribeToSaveResponse(
-                this.assetassetmbrService.create(this.assetassetmbr));
+              this.principal.identity().then((account) => {
+              this.assetassetmbr.lastmodifiedby=account.lastModifiedBy;
+              this.assetassetmbr.status="Active";
+              this.subscribeToSaveResponse(
+              this.assetassetmbrService.create(this.assetassetmbr));
+             });
         }
     }
 

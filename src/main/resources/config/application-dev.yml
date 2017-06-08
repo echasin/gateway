@@ -22,7 +22,7 @@ eureka:
 
 spring:
     profiles:
-        active: dev
+        active: prod
         include: swagger
     devtools:
         restart:
@@ -33,7 +33,7 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/apprefactory  
+        url: jdbc:postgresql://localhost:5432/apprefactory
         username: postgres
         password: postgres
     jpa:
@@ -55,8 +55,8 @@ spring:
             cluster-nodes:
             properties:
                 path:
-                  logs: target/elasticsearch/log
-                  data: target/elasticsearch/data
+                    logs: target/elasticsearch/log
+                    data: target/elasticsearch/data
     mail:
         host: localhost
         port: 25

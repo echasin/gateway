@@ -11,6 +11,9 @@ import { AssetPopupService } from './asset-popup.service';
 import { AssetService } from './asset.service';
 import { Assetrecordtype, AssetrecordtypeService } from '../assetrecordtype';
 
+import { Principal } from '../../shared';
+import { ResponseWrapper } from '../../shared';
+
 @Component({
     selector: 'jhi-asset-dialog',
     templateUrl: './asset-dialog.component.html'
@@ -28,15 +31,16 @@ export class AssetDialogComponent implements OnInit {
         private alertService: AlertService,
         private assetService: AssetService,
         private assetrecordtypeService: AssetrecordtypeService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private principal: Principal
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.assetrecordtypeService.query().subscribe(
-            (res: Response) => { this.assetrecordtypes = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.assetrecordtypeService.query()
+            .subscribe((res: ResponseWrapper) => { this.assetrecordtypes = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
     clear() {
         this.activeModal.dismiss('cancel');
@@ -48,8 +52,11 @@ export class AssetDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.assetService.update(this.asset));
         } else {
-            this.subscribeToSaveResponse(
-                this.assetService.create(this.asset));
+             this.principal.identity().then((account) => {
+                 this.asset.lastmodifiedby=account.lastModifiedBy;
+                 this.asset.status="Active";
+                 this.subscribeToSaveResponse(this.assetService.create(this.asset));
+           });
         }
     }
 

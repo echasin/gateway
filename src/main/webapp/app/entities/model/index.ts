@@ -4,5 +4,6 @@ export * from './model.service';
 export * from './model-dialog.component';
 export * from './model-delete-dialog.component';
 export * from './model-detail.component';
+export * from './edit-model-asset.component';
 export * from './model.component';
 export * from './model.route';

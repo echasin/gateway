@@ -9,6 +9,7 @@ import { EventManager, AlertService } from 'ng-jhipster';
 import { Modelrecordtype } from './modelrecordtype.model';
 import { ModelrecordtypePopupService } from './modelrecordtype-popup.service';
 import { ModelrecordtypeService } from './modelrecordtype.service';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-modelrecordtype-dialog',
@@ -24,7 +25,8 @@ export class ModelrecordtypeDialogComponent implements OnInit {
         public activeModal: NgbActiveModal,
         private alertService: AlertService,
         private modelrecordtypeService: ModelrecordtypeService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private principal: Principal
     ) {
     }
 
@@ -42,8 +44,12 @@ export class ModelrecordtypeDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.modelrecordtypeService.update(this.modelrecordtype));
         } else {
+            this.principal.identity().then((account) => {
+            this.modelrecordtype.lastmodifiedby=account.lastModifiedBy;
+            this.modelrecordtype.status="Active";
             this.subscribeToSaveResponse(
-                this.modelrecordtypeService.create(this.modelrecordtype));
+            this.modelrecordtypeService.create(this.modelrecordtype));
+          });
         }
     }
 
