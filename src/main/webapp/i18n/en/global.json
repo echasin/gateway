@@ -14,7 +14,7 @@
                 "assetrecordtype": "Assetrecordtype",
                 "model": "Model",
                 "modelrecordtype": "Modelrecordtype",
-                "report": "Report",
+				        "report": "Report",
                 "reportparameter": "Reportparameter",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },

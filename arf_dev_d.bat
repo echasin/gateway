@@ -10,6 +10,6 @@ START color 3F ^&^& cd D:\Github\apprefactory\gateway ^&^& title Gateway ^&^&  g
 #START Asset in Red Window with title
 START color 4F ^&^& cd D:\Github\apprefactory\asset ^&^& title Asset ^&^&  gradlew  ^&^& title Asset
 
+#START Report in Purple Window with title
+START color 5F ^&^& cd D:\Github\apprefactory\reports ^&^& title Report ^&^&  gradlew  ^&^& title Reports
 
-#START Asset in Red Window with title
-START color 5F ^&^& cd D:\Github\apprefactory\reports ^&^& title Report ^&^&  gradlew  ^&^& title Report
