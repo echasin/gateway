@@ -11,6 +11,10 @@ export class ReportService {
 
     private resourceUrl = 'report/api/reports';
     private resourceSearchUrl = 'report/api/_search/reports';
+    private parameterListUrl = 'report/api/parameterList';
+    private generateReportUrl = 'report/api/generateReport';
+    
+    
 
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
@@ -48,6 +52,14 @@ export class ReportService {
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
+    }
+    
+    parameterList(reportId: number): Observable<Response> {
+        return this.http.get(`${this.parameterListUrl}/${reportId}`);
+    }
+    
+    generateReport(reportId: number,parameters: any): Observable<Response> {
+        return this.http.get(`${this.generateReportUrl}/${reportId}/${parameters}`);
     }
 
     search(req?: any): Observable<ResponseWrapper> {

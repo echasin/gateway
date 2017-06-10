@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager  } from 'ng-jhipster';
+import { Response } from '@angular/http';
 
 import { Report } from './report.model';
 import { ReportService } from './report.service';
@@ -50,4 +51,15 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
             (response) => this.load(this.report.id)
         );
     }
+    
+    generateReport(){
+         this.reportService.parameterList(this.report.id).subscribe((res: Response) => {
+             console.log(res.json())
+             var jsonString = JSON.stringify(res.json());
+            this.reportService.generateReport(this.report.id,jsonString).subscribe((report) => {
+             console.log(report);
+           });
+        });
+    }
+    
 }
