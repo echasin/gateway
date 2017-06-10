@@ -7,13 +7,15 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
-                "asset": "Asset",
-				 "assetjson": "Assetjson",
+				"asset": "Asset",
+				"assetjson": "Assetjson",
                 "assetassetmbr": "Assetassetmbr",
                 "assetassetmbrrecordtype": "Assetassetmbrrecordtype",
                 "assetrecordtype": "Assetrecordtype",
                 "model": "Model",
                 "modelrecordtype": "Modelrecordtype",
+                "report": "Report",
+                "reportparameter": "Reportparameter",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
