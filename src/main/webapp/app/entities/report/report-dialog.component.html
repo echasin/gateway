@@ -1,0 +1,114 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myReportLabel" jhiTranslate="gatewayApp.report.home.createOrEditLabel">Create or edit a Report</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!report.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="report.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.report.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="report.name"
+            required />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.report.reporttemplatename" for="field_reporttemplatename">Reporttemplatename</label>
+            <input type="text" class="form-control" name="reporttemplatename" id="field_reporttemplatename"
+                [(ngModel)]="report.reporttemplatename"
+            required />
+            <div [hidden]="!(editForm.controls.reporttemplatename?.dirty && editForm.controls.reporttemplatename?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.reporttemplatename?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.report.reportoutputtypecode" for="field_reportoutputtypecode">Reportoutputtypecode</label>
+            <input type="text" class="form-control" name="reportoutputtypecode" id="field_reportoutputtypecode"
+                [(ngModel)]="report.reportoutputtypecode"
+            required />
+            <div [hidden]="!(editForm.controls.reportoutputtypecode?.dirty && editForm.controls.reportoutputtypecode?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.reportoutputtypecode?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.report.status" for="field_status">Status</label>
+            <input type="text" class="form-control" name="status" id="field_status"
+                [(ngModel)]="report.status"
+            required />
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.report.lastmodifiedby" for="field_lastmodifiedby">Lastmodifiedby</label>
+            <input type="text" class="form-control" name="lastmodifiedby" id="field_lastmodifiedby"
+                [(ngModel)]="report.lastmodifiedby"
+            required />
+            <div [hidden]="!(editForm.controls.lastmodifiedby?.dirty && editForm.controls.lastmodifiedby?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastmodifiedby?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.report.lastmodifieddatetime" for="field_lastmodifieddatetime">Lastmodifieddatetime</label>
+            <div class="d-flex">
+                <input id="field_lastmodifieddatetime" type="datetime-local" class="form-control" name="lastmodifieddatetime" [(ngModel)]="report.lastmodifieddatetime"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.lastmodifieddatetime?.dirty && editForm.controls.lastmodifieddatetime?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastmodifieddatetime?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.lastmodifieddatetime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="gatewayApp.report.domain" for="field_domain">Domain</label>
+            <input type="text" class="form-control" name="domain" id="field_domain"
+                [(ngModel)]="report.domain"
+            required />
+            <div [hidden]="!(editForm.controls.domain?.dirty && editForm.controls.domain?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.domain?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
