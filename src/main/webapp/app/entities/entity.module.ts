@@ -10,11 +10,11 @@ import { GatewayModelrecordtypeModule } from './modelrecordtype/modelrecordtype.
 import { GatewayReportModule } from './report/report.module';
 import { GatewayReportparameterModule } from './reportparameter/reportparameter.module';
 
-
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
     imports: [
+
         GatewayAssetModule,
         GatewayAssetassetmbrModule,
         GatewayAssetassetmbrrecordtypeModule,
@@ -24,7 +24,8 @@ import { GatewayReportparameterModule } from './reportparameter/reportparameter.
         GatewayModelrecordtypeModule,
         GatewayReportModule,
         GatewayReportparameterModule,
-
+        GatewayReportModule,
+      
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
