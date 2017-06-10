@@ -2,8 +2,7 @@
   "generator-jhipster": {
     "promptValues": {
       "packageName": "com.innvo",
-      "nativeLanguage": "en",
-      "microservicePath": "/home/ali/git/report"
+      "nativeLanguage": "en"
     },
     "jhipsterVersion": "4.5.1",
     "baseName": "gateway",

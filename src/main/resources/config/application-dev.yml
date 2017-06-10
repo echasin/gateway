@@ -22,7 +22,7 @@ eureka:
 
 spring:
     profiles:
-        active: dev
+        active: prod
         include: swagger
     devtools:
         restart:
