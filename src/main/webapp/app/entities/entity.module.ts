@@ -7,6 +7,9 @@ import { GatewayAssetassetmbrrecordtypeModule } from './assetassetmbrrecordtype/
 import { GatewayAssetrecordtypeModule } from './assetrecordtype/assetrecordtype.module';
 import { GatewayModelModule } from './model/model.module';
 import { GatewayModelrecordtypeModule } from './modelrecordtype/modelrecordtype.module';
+import { GatewayReportModule } from './report/report.module';
+import { GatewayReportparameterModule } from './reportparameter/reportparameter.module';
+
 
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
@@ -18,7 +21,10 @@ import { GatewayModelrecordtypeModule } from './modelrecordtype/modelrecordtype.
         GatewayAssetrecordtypeModule,
         GatewayAssetjsonModule,
         GatewayModelModule,
-        GatewayModelrecordtypeModule
+        GatewayModelrecordtypeModule,
+        GatewayReportModule,
+        GatewayReportparameterModule,
+
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
