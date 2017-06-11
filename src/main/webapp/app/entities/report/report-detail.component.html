@@ -3,6 +3,13 @@
     <h2><span jhiTranslate="gatewayApp.report.detail.title">Report</span> {{report.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
+    
+    <button type="submit"
+            (click)="generateReport()"
+            class="btn btn-info">
+        <span> Generate Report</span>
+    </button>
+    
     <dl class="row-md jh-entity-details">
         <dt><span jhiTranslate="gatewayApp.report.name">Name</span></dt>
         <dd>
