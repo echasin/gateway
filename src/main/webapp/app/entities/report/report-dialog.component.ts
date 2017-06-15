@@ -9,6 +9,7 @@ import { EventManager, AlertService } from 'ng-jhipster';
 import { Report } from './report.model';
 import { ReportPopupService } from './report-popup.service';
 import { ReportService } from './report.service';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-report-dialog',
@@ -24,7 +25,8 @@ export class ReportDialogComponent implements OnInit {
         public activeModal: NgbActiveModal,
         private alertService: AlertService,
         private reportService: ReportService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private principal: Principal
     ) {
     }
 
@@ -42,8 +44,11 @@ export class ReportDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.reportService.update(this.report));
         } else {
-            this.subscribeToSaveResponse(
-                this.reportService.create(this.report));
+                 this.principal.identity().then((account) => {
+                 this.report.lastmodifiedby=account.lastModifiedBy;
+                 this.report.status="Active";
+                 this.subscribeToSaveResponse(this.reportService.create(this.report));
+                });
         }
     }
 

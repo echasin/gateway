@@ -11,6 +11,8 @@ import { ReportparameterPopupService } from './reportparameter-popup.service';
 import { ReportparameterService } from './reportparameter.service';
 import { Report, ReportService } from '../report';
 import { ResponseWrapper } from '../../shared';
+import { Principal } from '../../shared';
+
 
 @Component({
     selector: 'jhi-reportparameter-dialog',
@@ -29,7 +31,8 @@ export class ReportparameterDialogComponent implements OnInit {
         private alertService: AlertService,
         private reportparameterService: ReportparameterService,
         private reportService: ReportService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private principal: Principal
     ) {
     }
 
@@ -49,8 +52,11 @@ export class ReportparameterDialogComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.reportparameterService.update(this.reportparameter));
         } else {
-            this.subscribeToSaveResponse(
-                this.reportparameterService.create(this.reportparameter));
+            this.principal.identity().then((account) => {
+            this.reportparameter.lastmodifiedby=account.lastModifiedBy;
+            this.reportparameter.status="Active";
+            this.subscribeToSaveResponse(this.reportparameterService.create(this.reportparameter));
+           });
         }
     }
 
