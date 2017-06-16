@@ -12,6 +12,7 @@ export class AssetassetmbrService {
     private resourceUrl = 'asset/api/assetassetmbrs';
     private resourceSearchUrl = 'asset/api/_search/assetassetmbrs';
     private assetassetmbrbymodelUrl = 'asset/api/assetassetmbrbymodel';
+    private assetassetmbrbyByInstanceUrl= 'asset/api/assetassetmbrByInstance';
     
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
@@ -48,8 +49,13 @@ export class AssetassetmbrService {
     }
     
     loadAssetassetmbr(id: number): Observable<Response> {
-      //  const options = this.createRequestOption(req);
         return this.http.get(`${this.assetassetmbrbymodelUrl}/${id}`)
+            .map((res: Response) => this.convertResponse(res))
+        ;
+    }
+    
+    loadAssetassetmbrByInstance(parent: any,child:any): Observable<Response> {
+        return this.http.get(`${this.assetassetmbrbyByInstanceUrl}/${parent}/${child}`)
             .map((res: Response) => this.convertResponse(res))
         ;
     }

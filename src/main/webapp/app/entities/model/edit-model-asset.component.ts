@@ -28,6 +28,7 @@ export class EditModelAsset implements OnInit, OnDestroy {
     assets: Asset[];
     assetassetmbr: Assetassetmbr={};
     private assetasset=[];
+    private coordinates=[];
     model: Model;
     line: boolean;
     error: any;
@@ -60,9 +61,7 @@ export class EditModelAsset implements OnInit, OnDestroy {
         
         this.registerChangeInModels();
         this.loadAllAssets();
-       // this.loadAssetassetmbr();
         this.buildCanvas();
-        this.buildTree();
     }
 
     load(id) {
@@ -112,7 +111,13 @@ export class EditModelAsset implements OnInit, OnDestroy {
                         var child=this.findByKey(arr,res.json[i].assetassetmbr.childinstance);
                         var parent=this.findByKey(arr,res.json[i].assetassetmbr.parentinstance);
                         console.log(res.json[i]);
-                      if(parent ===null && child ===null){ 
+                        this.coordinates.push({"sourceId": res.json[i].assetassetmbr.parentasset.id,"targetId": res.json[i].assetassetmbr.childasset.id,
+                            "parentxcoordinate": res.json[i].assetassetmbr.parentxcoordinate,"parentycoordinate": res.json[i].assetassetmbr.parentycoordinate,
+                            "childxcoordinate": res.json[i].assetassetmbr.childxcoordinate,"childycoordinate": res.json[i].assetassetmbr.childycoordinate,
+                            "parentInstance": res.json[i].assetassetmbr.parentinstance,"childInstance": res.json[i].assetassetmbr.childinstance,"updated":false});  
+                      
+                        console.log(this.coordinates);
+                      if(parent ===null && child ===null){    
                              arr.push(res.json[i].assetassetmbr.parentinstance);
                              a = new joint.shapes.basic.Rect({
                               position: {x: res.json[i].assetassetmbr.parentxcoordinate, y: res.json[i].assetassetmbr.parentycoordinate},
@@ -198,11 +203,6 @@ export class EditModelAsset implements OnInit, OnDestroy {
          this.assets = data;
     }
     
-    
-    buildTree(){
-        
-    }
-    
     private onError(error) {
         this.alertService.error(error.message, null, null);
     }
@@ -248,9 +248,13 @@ export class EditModelAsset implements OnInit, OnDestroy {
                }));
               this.line=false; 
            }
+                    
+          if (cellView.model.attributes.type === 'basic.Rect'){
+             this.layout(x,y,cellView.model.attributes.attrs.instance);
+          }
+          
       });
         
-                
         this.graph.on('change:source change:target', (link) => {
             
             if (link.get('source').id && link.get('target').id) {
@@ -268,17 +272,19 @@ export class EditModelAsset implements OnInit, OnDestroy {
         for(var mbr=0;mbr<this.assetasset.length;mbr++){            
              this.save(mbr); 
         }
+        
+         for(var j=0;j<this.coordinates.length;j++){
+              this.updateCoordinate(j);
+             }
      }
         
     
         
-        save(mbr){
+      save(mbr){
             var parentasset;
             var childasset;
            
             this.assetassetmbr.model=this.model;   
-            console.log(mbr);            
-            console.log(this.assetasset);
             
             this.principal.identity().then((account) => {
               Observable.forkJoin( this.assetService.find(this.assetasset[mbr].sourceId), this.assetService.find(this.assetasset[mbr].targetId)).subscribe(res => {
@@ -302,6 +308,35 @@ export class EditModelAsset implements OnInit, OnDestroy {
             });
            
         }
+    
+     updateCoordinate(j){
+                 
+         this.assetassetmbr.model=this.model;   
+         this.principal.identity().then((account) => {
+          Observable.forkJoin( this.assetService.find(this.coordinates[j].sourceId), this.assetService.find(this.coordinates[j].targetId),this.assetassetmbrService.loadAssetassetmbrByInstance(this.coordinates[j].parentInstance,this.coordinates[j].childInstance)).subscribe(res => {
+            this.assetassetmbr.parentasset=res[0];
+            this.assetassetmbr.childasset=res[1];
+            this.assetassetmbr.id=res[2].json[0].id;
+            this.assetassetmbr.comment="comment";
+                console.log(this.coordinates[j]);
+
+            this.assetassetmbr.parentxcoordinate=this.coordinates[j].parentxcoordinate;
+            this.assetassetmbr.parentycoordinate=this.coordinates[j].parentycoordinate;
+            this.assetassetmbr.childxcoordinate=this.coordinates[j].childxcoordinate;
+            this.assetassetmbr.childycoordinate=this.coordinates[j].childycoordinate;
+            
+            this.assetassetmbr.parentinstance=this.coordinates[j].parentInstance;
+            this.assetassetmbr.childinstance=this.coordinates[j].childInstance;
+            
+            this.assetassetmbr.nameshort="nameshort";
+            this.assetassetmbr.status="active";
+            this.assetassetmbr.lastmodifiedby=account.lastModifiedBy;
+                  this.subscribeToSaveResponse(this.assetassetmbrService.update(this.assetassetmbr));  
+              });
+            });
+              
+       
+     }
 
       private subscribeToSaveResponse(result: Observable<Assetassetmbr>) {
         result.subscribe((res: Assetassetmbr) =>
@@ -341,6 +376,25 @@ export class EditModelAsset implements OnInit, OnDestroy {
     
     addLine(){
        this.line=true;        
+    }
+    
+    
+    layout(x,y,instance){
+        for(var i=0;i<this.coordinates.length;i++){
+             if(this.coordinates[i].parentInstance===instance){
+                 this.coordinates[i].parentxcoordinate=x;
+                 this.coordinates[i].parentycoordinate=y;
+             }
+            
+              if(this.coordinates[i].childInstance===instance){
+                 this.coordinates[i].childxcoordinate=x;
+                 this.coordinates[i].childycoordinate=y;
+             }
+        
+        }
+      
+        console.log(this.coordinates);
+    
     }
         
 }
